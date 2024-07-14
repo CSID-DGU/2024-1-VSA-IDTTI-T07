@@ -21,6 +21,10 @@ public class ParkingData {
     private String date;
     @Column
     private int availParkSpace;
+    @Column
+    private int totalSpace;
+    @Column
+    private int currentParkSpace;
     @Column // 주소 ADDR
     private String address;
 
