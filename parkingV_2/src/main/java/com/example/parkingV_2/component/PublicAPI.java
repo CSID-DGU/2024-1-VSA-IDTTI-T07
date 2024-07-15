@@ -68,7 +68,7 @@ public class PublicAPI {
                 String targetCode = obj.getString("PKLT_CD");
                 String targetAddr = obj.getString("ADDR");
                 boolean found = parkingDataList.stream().anyMatch(addr -> addr.getAddress().equals(targetAddr));
-                if (!obj.getString("NOW_PRK_VHCL_UPDT_TM").equals("")) {
+                if (!obj.getString("PRK_STTS_NM").equals("미연계중")) {
                     if (!found) {
                         ParkingData parkingData = new ParkingData();
                         if (!obj.getString("PKLT_CD").equals(obj2.getString("PKLT_CD"))) {
