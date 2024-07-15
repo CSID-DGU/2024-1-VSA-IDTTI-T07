@@ -76,12 +76,20 @@ public class PublicAPI {
                             if (!flag) {
                                 parkingData.setTotalSpace(spaceCount);
                                 parkingData.setCurrentParkSpace(obj.getInt("NOW_PRK_VHCL_CNT"));
-                                parkingData.setAvailParkSpace(spaceCount - obj.getInt("NOW_PRK_VHCL_CNT"));
+                                if (spaceCount - obj.getInt("NOW_PRK_VHCL_CNT") < 0) {
+                                    parkingData.setAvailParkSpace(0);
+                                } else {
+                                    parkingData.setAvailParkSpace(spaceCount - obj.getInt("NOW_PRK_VHCL_CNT"));
+                                }
                                 flag = true;
                                 spaceCount = 1;
                             } else {
+                                if (obj.getInt("TPKCT") - obj.getInt("NOW_PRK_VHCL_CNT") < 0) {
+                                    parkingData.setAvailParkSpace(0);
+                                } else {
+                                    parkingData.setAvailParkSpace(obj.getInt("TPKCT") - obj.getInt("NOW_PRK_VHCL_CNT"));
+                                }
                                 parkingData.setCurrentParkSpace(obj.getInt("NOW_PRK_VHCL_CNT"));
-                                parkingData.setAvailParkSpace(obj.getInt("TPKCT") - obj.getInt("NOW_PRK_VHCL_CNT"));
                             }
 
 
@@ -93,7 +101,11 @@ public class PublicAPI {
                             if ((i + 2) == jArray.length()) { //i=0, length =3 i+2=2 // i=1 , i+2=3,len=3//i=2 , i+1=3,len=3
                                 ParkingData LastParkingData = new ParkingData();
                                 parkingData.setCurrentParkSpace(obj.getInt("NOW_PRK_VHCL_CNT"));
-                                LastParkingData.setAvailParkSpace(obj2.getInt("TPKCT") - obj2.getInt("NOW_PRK_VHCL_CNT"));
+                                if (obj.getInt("TPKCT") - obj.getInt("NOW_PRK_VHCL_CNT") < 0) {
+                                    parkingData.setAvailParkSpace(0);
+                                } else {
+                                    parkingData.setAvailParkSpace(obj.getInt("TPKCT") - obj.getInt("NOW_PRK_VHCL_CNT"));
+                                }
                                 LastParkingData.setDate(obj2.getString("NOW_PRK_VHCL_UPDT_TM"));
 //                    parkingData.setCrrSpaces(obj.getInt("NOW_PRK_VHCL_CNT"));
                                 LastParkingData.setAddress(obj2.getString("ADDR"));
@@ -107,7 +119,11 @@ public class PublicAPI {
 //                            spaceCount++;
                                 parkingData.setTotalSpace(spaceCount);
                                 parkingData.setCurrentParkSpace(obj.getInt("NOW_PRK_VHCL_CNT"));
-                                parkingData.setAvailParkSpace(spaceCount - obj.getInt("NOW_PRK_VHCL_CNT"));
+                                if (spaceCount - obj.getInt("NOW_PRK_VHCL_CNT") < 0) {
+                                    parkingData.setAvailParkSpace(0);
+                                } else {
+                                    parkingData.setAvailParkSpace(spaceCount - obj.getInt("NOW_PRK_VHCL_CNT"));
+                                }
                                 parkingData.setDate(obj.getString("NOW_PRK_VHCL_UPDT_TM"));
 //                    parkingData.setCrrSpaces(obj.getInt("NOW_PRK_VHCL_CNT"));
                                 parkingData.setAddress(obj.getString("ADDR"));
