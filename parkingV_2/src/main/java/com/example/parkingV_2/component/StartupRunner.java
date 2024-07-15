@@ -8,9 +8,9 @@
 //public class StartupRunner implements CommandLineRunner {
 //
 //    @Autowired
-//    private PublicAPI publicAPI;
+//    private PublicAPI2 publicAPI;
 //    @Autowired
-//    private StaticPublicAPI staticPublicAPI;
+//    private StaticPublicAPI2 staticPublicAPI;
 //
 //    @Override
 //    public void run(String... args) throws Exception {
@@ -36,9 +36,14 @@
 //        publicAPI.fetchAndSaveParkingData("1349","1589");
 //        publicAPI.fetchAndSaveParkingData("1590","1899");
 //        publicAPI.fetchAndSaveParkingData("1900","2000");
+//        publicAPI.fetchAndSaveParkingData2("1","1000");
+//        publicAPI.fetchAndSaveParkingData2("1001","2000");
+//        publicAPI.fetchAndSaveParkingData2("2001","3000");
+//        publicAPI.fetchAndSaveParkingData2("3001","4000");
+//        publicAPI.fetchAndSaveParkingData2("4001","5000");
 //
-////        publicAPI.fetchAndSaveParkingData("1001","2000");
-////        staticPublicAPI.saveStaticParkingData("1","1000");
-////        staticPublicAPI.saveStaticParkingData("1001","2000");
+//        publicAPI.fetchAndSaveParkingData("1001","2000");
+//        staticPublicAPI.saveStaticParkingData("1","1000");
+//        staticPublicAPI.saveStaticParkingData("1001","2000");
 //    }
 //}
