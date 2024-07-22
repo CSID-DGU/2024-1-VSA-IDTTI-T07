@@ -1,5 +1,6 @@
 package com.example.parkingV_2.component;
 
+import com.example.parkingV_2.AppConfig;
 import com.example.parkingV_2.entity.ParkingCodes;
 import com.example.parkingV_2.entity.ParkingData;
 import com.example.parkingV_2.repository.ParkingDataRepository;
@@ -25,11 +26,14 @@ import java.util.*;
 public class PublicAPI {
     @Autowired
     private ParkingDataService parkingDataService;
-
-
+    @Autowired
+    private AppConfig appConfig;
     public void fetchAndSaveParkingData(String startDataNum,String endDataNum) throws Exception {
+
+        String apiKey = appConfig.getApiKey();
+
         StringBuilder urlBuilder = new StringBuilder("http://openapi.seoul.go.kr:8088");
-        urlBuilder.append("/").append(URLEncoder.encode("524d684852746c7a39386c5a6f6562", "UTF-8")); // 인증키
+        urlBuilder.append("/").append(URLEncoder.encode(apiKey, "UTF-8")); // 인증키
         urlBuilder.append("/").append(URLEncoder.encode("json", "UTF-8")); // 요청파일타입
         urlBuilder.append("/").append(URLEncoder.encode("GetParkingInfo", "UTF-8")); // 서비스명
         urlBuilder.append("/").append(URLEncoder.encode(startDataNum, "UTF-8")); // 요청시작위치
