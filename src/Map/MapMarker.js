@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import MapOverlay from './MapOverlay';
 
-// const MapMarker = ({ map, activeOverlay, setActiveOverlay }) => {
     const MapMarker = ({ map}) => {
     const { kakao } = window;
 
@@ -58,7 +57,6 @@ import MapOverlay from './MapOverlay';
                 activeOverlay = overlay;
             });
         });
-    // }, [map, activeOverlay, setActiveOverlay]);
 }, [map]);
     return null;
 };

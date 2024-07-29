@@ -5,7 +5,6 @@ import './Map.css';
 const Map = () => {
     const { kakao } = window;
     const [map, setMap] = useState(null);
-    // const [activeOverlay, setActiveOverlay] = useState(null);
 
     useEffect(() => {
         var container = document.getElementById('map');
@@ -23,8 +22,6 @@ const Map = () => {
             {map && (
                 <MapMarker 
                     map={map} 
-                    // activeOverlay={activeOverlay} 
-                    // setActiveOverlay={setActiveOverlay} 
                 />
             )}
         </div>
