@@ -1,5 +1,3 @@
-import React from 'react';
-
 const MapOverlay = ({ title }) => {
     const overlayContent = `
         <div class="wrap" id="overlay-${title}">
