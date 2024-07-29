@@ -8,6 +8,26 @@ const ParkingDataFetcher = ({ setPositions }) => {
             .then(response => {
                 const data = response.data.map(parkingCode => ({
                     title: parkingCode.parkingName,
+                    address: parkingCode.address,
+                    parkingType: parkingCode.parkingType,
+                    operationType: parkingCode.operationType,
+                    phoneNumber: parkingCode.phoneNumber,
+                    freeOrNot: parkingCode.freeOrNot,
+                    nightFreeOpenName: parkingCode.nightFreeOpenName,
+                    weekdayOpenTime: parkingCode.weekdayOpenTime,
+                    weekdayCloseTime: parkingCode.weekdayCloseTime,
+                    weekendOpenTime: parkingCode.weekendOpenTime,
+                    weekendCloseTime: parkingCode.weekendCloseTime,
+                    holidayOpenTime: parkingCode.holidayOpenTime,
+                    holidayCloseTime: parkingCode.holidayCloseTime,
+                    saturdayFreeOrNot: parkingCode.saturdayFreeOrNot,
+                    holidayFreeOrNot: parkingCode.holidayFreeOrNot,
+                    monthlyTicketAmount: parkingCode.monthlyTicketAmount,
+                    baseParkingFee: parkingCode.baseParkingFee,
+                    baseParkingTime: parkingCode.baseParkingTime,
+                    additionalFee: parkingCode.additionalFee,
+                    additionalTime: parkingCode.additionalTime,
+                    maxDailyFee: parkingCode.maxDailyFee,
                     latlng: new kakao.maps.LatLng(parkingCode.latitude, parkingCode.longitude)
                 }));
                 setPositions(data);

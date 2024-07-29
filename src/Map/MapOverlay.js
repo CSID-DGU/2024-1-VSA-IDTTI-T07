@@ -1,5 +1,6 @@
 const MapOverlay = ({ title }) => {
-    const overlayContent = `
+    const overlayContent = 
+    `
         <div class="wrap" id="overlay-${title}">
             <div class="info">
                 <div class="title">
