@@ -14,6 +14,11 @@ public class ParkingCodes {
     @Id
     private String code; //PKLT_CD
 
+    @Column
+    private int availParkSpace;
+    @Column
+    private int totalSpace;
+
     @Column(name = "parking_name") // 주차장명 PKLT_NM
     private String parkingName;
 

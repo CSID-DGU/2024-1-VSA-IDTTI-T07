@@ -23,4 +23,12 @@ public class ParkingCodesService {
         return parkingCode.orElse(null);
     }
 
+    public List<ParkingCodes> findAllParkingCode() {
+        return parkingCodesRepository.findAll();
+    }
+
+    public void updateParkingSpaces(String code, int availParkSpace, int totalSpace) {
+        parkingCodesRepository.updateParkingSpaces(code, availParkSpace, totalSpace);
+    }
+
 }
