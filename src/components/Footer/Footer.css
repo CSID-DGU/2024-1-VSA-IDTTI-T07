@@ -1,0 +1,22 @@
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f8f9fa;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 15px 0;
+}
+
+.footer-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-button img {
+    width: 28px;
+    height: 28px;
+}
