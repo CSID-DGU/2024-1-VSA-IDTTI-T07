@@ -6,20 +6,57 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .header h1 {
     margin: 0;
     text-align: center;
+    flex: 1; /* 남은 공간을 차지하도록 설정 */
 }
 
 .search-button {
     background: none;
     border: none;
     cursor: pointer;
+    margin-left: auto; /* 오른쪽으로 정렬 */
 }
 
 .search-button img {
     width: 24px;
     height: 24px;
+}
+
+/* 미디어 쿼리 추가 */
+@media (max-width: 768px) {
+    .header {
+        padding: 10px;
+    }
+
+    .header h1 {
+        font-size: 18px; /* 화면이 작아졌을 때 글자 크기 조정 */
+    }
+
+    .search-button img {
+        width: 20px;
+        height: 20px; /* 화면이 작아졌을 때 아이콘 크기 조정 */
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        /* flex-direction: column; 작은 화면에서는 요소를 세로로 나열 */
+        align-items: center;
+    }
+
+    .header h1 {
+        font-size: 28px; /* 더 작은 화면에서는 글자 크기 더 조정 */
+        margin-bottom: 5px; /* 아래에 약간의 여백 추가 */
+        text-align: left;
+        margin-left: 10px;
+    }
+
+    .search-button {
+        margin-left: 0; /* 오른쪽 여백 제거 */
+    }
 }
