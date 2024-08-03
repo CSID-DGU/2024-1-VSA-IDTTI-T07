@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import MapMarker from './MapMarker';
+import ParkingDataFetcher from '../DataControl/ParkingDataFetcher';
 import './Map.css';
 
 const Map = () => {
     const { kakao } = window;
     const [map, setMap] = useState(null);
+    const [positions, setPositions] = useState([]);
 
     useEffect(() => {
         var container = document.getElementById('map');
@@ -19,9 +21,11 @@ const Map = () => {
 
     return (
         <div id="map">
+            <ParkingDataFetcher setPositions={setPositions} />
             {map && (
                 <MapMarker 
                     map={map} 
+                    positions={positions} 
                 />
             )}
         </div>

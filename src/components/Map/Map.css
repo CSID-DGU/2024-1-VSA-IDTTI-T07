@@ -5,6 +5,7 @@
     margin-top: 15px; /* 헤더와 지도의 사이 여백을 줄임 */
 }
 
+
 .wrap {
     position: absolute;
     left: 0;
@@ -20,6 +21,8 @@
 }
 
 .wrap * {
+    width: 286px;
+    height: 120px;
     padding: 0;
     margin: 0;
 }
@@ -34,10 +37,10 @@
     background: #fff;
 }
 
-.wrap .info:nth-child(1) {
+/* .wrap .info:nth-child(1) {
     border: 0;
     box-shadow: 0px 1px 2px #888;
-}
+} */
 
 .info .title {
     padding: 5px 0 0 10px;
@@ -46,6 +49,8 @@
     border-bottom: 1px solid #ddd;
     font-size: 18px;
     font-weight: bold;
+    text-align: center; /* 텍스트 가운데 정렬 */
+    position: relative; /* .close 요소의 위치 설정을 위해 상대 위치로 변경 */
 }
 
 .info .close {
@@ -58,34 +63,34 @@
     background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
 }
 
-.info .close:hover {
+/* .info .close:hover {
     cursor: pointer;
-}
+} */
 
-.info .body {
+/* .info .body {
     position: relative;
     overflow: hidden;
-}
+} */
 
-.info .desc {
+/* .info .desc {
     position: relative;
     margin: 13px 0 0 90px;
     height: 75px;
-}
+} */
 
-.desc .ellipsis {
+/* .desc .ellipsis {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
+} */
 
-.desc .jibun {
+/* .desc .jibun {
     font-size: 11px;
     color: #888;
     margin-top: -2px;
-}
+} */
 
-.info .img {
+/* .info .img {
     position: absolute;
     top: 6px;
     left: 5px;
@@ -94,7 +99,7 @@
     border: 1px solid #ddd;
     color: #888;
     overflow: hidden;
-}
+} */
 
 .info:after {
     content: '';
@@ -175,3 +180,86 @@
         height: 50px;
     }
 }
+.container {
+    background-color: #e2e8f0; /* bg-gray-300 */
+    padding: 16px;
+  }
+  
+  .inner-container {
+    margin: 0 auto;
+    max-width: 270px; /* max-w-3xl */
+    background-color: #bfdbfe; /* bg-blue-200 */
+    padding: 16px;
+  }
+  
+  .content {
+    height: 280px;
+    overflow: auto;
+    background-color: #ffffff; /* bg-white */
+    padding: 20px;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .title {
+    font-size: 1.25rem; /* text-xl */
+    font-weight: bold;
+    color: #facc15; /* text-yellow-500 */
+  }
+  
+  .address {
+    margin-top: 8px;
+    color: #6b7280; /* text-gray-500 */
+  }
+  
+  .divider {
+    margin: 16px 0;
+    border-top: 2px solid #d1d5db; /* border-t-2 border-gray-300 */
+  }
+  
+  .parking-info-header {
+    display: flex;
+    justify-content: center;
+    gap: 28px; /* 행과 열 모두 16px 간격 */
+  }
+  
+  .header-item {
+    height: 32px;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .parking-info {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+  }
+  
+  .parking-spot {
+    height: 40px;
+    width: 80px;
+    border-radius: 8px;
+    border: 2px solid #fcd34d; /* border-yellow-300 */
+    background-color: #ffffff; /* bg-white */
+    text-align: center;
+    font-size: 25px;
+  }
+  
+  .details {
+    margin-top: 20px;
+  }
+  
+  .detail-item {
+    margin: 12px 0;
+    text-align: center;
+  }
+  
+  .detail-title {
+    padding-left: 8px;
+    font-weight: bold;
+    color: #60a5fa; /* text-blue-400 */
+  }
+  
