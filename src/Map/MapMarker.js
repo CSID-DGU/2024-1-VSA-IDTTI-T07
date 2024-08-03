@@ -19,7 +19,33 @@ const MapMarker = ({ map, positions }) => {
                     image: markerImage
                 });
 
-                var overlayContent = MapOverlay({ title: position.title });
+                var overlayContent = document.createElement('div');
+                overlayContent.innerHTML = MapOverlay({ 
+                    title: position.title,
+                    availParkSpace: position.availParkSpace,
+                    totalSpace: position.totalSpace,
+                    address: position.address,
+                    parkingType: position.parkingType,
+                    operationType: position.operationType,
+                    phoneNumber: position.phoneNumber,
+                    freeOrNot: position.freeOrNot,
+                    nightFreeOpenName: position.nightFreeOpenName,
+                    weekdayOpenTime: position.weekdayOpenTime,
+                    weekdayCloseTime: position.weekdayCloseTime,
+                    weekendOpenTime: position.weekendOpenTime,
+                    weekendCloseTime: position.weekendCloseTime,
+                    holidayOpenTime: position.holidayOpenTime,
+                    holidayCloseTime: position.holidayCloseTime,
+                    saturdayFreeOrNot: position.saturdayFreeOrNot,
+                    holidayFreeOrNot: position.holidayFreeOrNot,
+                    monthlyTicketAmount: position.monthlyTicketAmount,
+                    baseParkingFee: position.baseParkingFee,
+                    baseParkingTime: position.baseParkingTime,
+                    additionalFee: position.additionalFee,
+                    additionalTime: position.additionalTime,
+                    maxDailyFee: position.maxDailyFee
+                });
+
                 var overlay = new kakao.maps.CustomOverlay({
                     content: overlayContent,
                     map: map,
@@ -33,7 +59,13 @@ const MapMarker = ({ map, positions }) => {
                         activeOverlay.setMap(null);
                     }
                     overlay.setMap(map);
+                    overlayContent.style.display = 'block';
                     activeOverlay = overlay;
+                });
+
+                overlayContent.querySelector('.close').addEventListener('click', () => {
+                    overlayContent.style.display = 'none';
+                    activeOverlay = null;
                 });
             });
         }
