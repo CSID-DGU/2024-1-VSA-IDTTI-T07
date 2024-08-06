@@ -5,15 +5,15 @@ import frequentIcon from '../../assets/images/frequent.svg';
 import locationIcon from '../../assets/images/location.svg';
 import './Footer.css';
 
-const Footer = () => {
+const Footer = ({ toggleAccordion }) => {
     return (
         <footer className="footer">
             <Link to="/" className="footer-button">
                 <img src={homeIcon} alt="Home" />
             </Link>
-            <Link to="/frequent" className="footer-button">
+            <button onClick={toggleAccordion} className="footer-button">
                 <img src={frequentIcon} alt="Frequent" />
-            </Link>
+            </button>
             <Link to="/location" className="footer-button">
                 <img src={locationIcon} alt="Location" />
             </Link>
