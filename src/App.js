@@ -1,22 +1,3 @@
-// import React,{useEffect, useState} from 'react';
-// import './App.css';
-// import Map from './components/Map/Map';
-// import Header from './components/Header/Header';
-// import Footer from './components/Footer/Footer';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <Header />
-//       <Map />
-//       <Footer />
-//     </div>
-//   );
-// }
-
-// export default App;
-
-
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Home from './pages/Home';

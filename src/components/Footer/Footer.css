@@ -1,5 +1,5 @@
 .footer {
-    position: fixed;
+    /* position: fixed; */
     bottom: 0;
     width: 100%;
     background-color: #f8f9fa;
@@ -11,12 +11,14 @@
 }
 
 .footer-button {
+    background-color: #f8f9fa;
+    border: none;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .footer-button img {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
 }

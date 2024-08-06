@@ -1,8 +1,10 @@
 import React from 'react';
+import '../App.css';
+
 
 const Search = () => {
     return (
-        <div>
+        <div className="App">
             <h1>Search Page</h1>
             <p>검색 기능이 구현될 페이지입니다.</p>
         </div>
