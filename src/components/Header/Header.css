@@ -23,8 +23,8 @@
 }
 
 .search-button img {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
 }
 
 /* 미디어 쿼리 추가 */
@@ -38,8 +38,8 @@
     }
 
     .search-button img {
-        width: 20px;
-        height: 20px; /* 화면이 작아졌을 때 아이콘 크기 조정 */
+        width: 23px;
+        height: 23px; /* 화면이 작아졌을 때 아이콘 크기 조정 */
     }
 }
 
