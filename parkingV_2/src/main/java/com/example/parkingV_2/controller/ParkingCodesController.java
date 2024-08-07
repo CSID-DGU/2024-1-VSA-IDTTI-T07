@@ -13,7 +13,7 @@ import java.util.List;
 public class ParkingCodesController {
     @Autowired ParkingCodesService parkingCodesService;
 
-    @GetMapping("/api/parking-codes")
+    @GetMapping("/api/parking")
     public List<ParkingCodes> getAllParkingCodeList() {
         return parkingCodesService.findAllParkingCode();
     }
