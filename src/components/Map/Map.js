@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import MapMarker from './MapMarker';
 import ParkingDataFetcher from '../DataControl/ParkingDataFetcher';
 import './Map.css';
+import ZoomButton from '../Button/ZoomButton';
+import MyLocationButton from '../Button/MyLocationButton';
 
 const Map = () => {
     const { kakao } = window;
@@ -23,10 +25,18 @@ const Map = () => {
         <div id="map">
             <ParkingDataFetcher setPositions={setPositions} />
             {map && (
-                <MapMarker 
-                    map={map} 
-                    positions={positions} 
-                />
+                <>
+                    <MapMarker 
+                        map={map} 
+                        positions={positions}
+                        />
+                    <ZoomButton 
+                        map={map}
+                        />
+                    <MyLocationButton
+                        map={map}
+                    />
+                </>
             )}
         </div>
     );
