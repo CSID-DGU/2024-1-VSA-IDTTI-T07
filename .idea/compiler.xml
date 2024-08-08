@@ -2,17 +2,18 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
-          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.32/17d46b3e205515e1e8efd3ee4d57ce8018914163/lombok-1.18.32.jar" />
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.34/ec547ef414ab1d2c040118fb9c1c265ada63af14/lombok-1.18.34.jar" />
         </processorPath>
-        <module name="com.example.parkingV_2.main" />
+        <module name="parkingV_2.parkingV_2.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="parkingV_2.parkingV_2.main" target="17" />
-      <module name="parkingV_2.parkingV_2.test" target="17" />
+      <module name="parkingV_2.parkingV_2.main~1" target="17" />
+      <module name="parkingV_2.parkingV_2.test~1" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
