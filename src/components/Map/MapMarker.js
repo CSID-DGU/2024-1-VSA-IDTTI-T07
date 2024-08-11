@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import MapOverlay from './MapOverlay';
-import { useAuth } from '../Auth/AuthContext'; // AuthContext 파일의 경로
-import ReactDOM from 'react-dom'; // ReactDOM을 import합니다.
+import { useAuth } from '../Auth/AuthContext';
+import ReactDOM from 'react-dom';
 
 const MapMarker = ({ map, positions }) => {
     const { kakao } = window;
@@ -23,9 +23,9 @@ const MapMarker = ({ map, positions }) => {
                 });
 
                 const overlayContent = document.createElement('div');
-                overlayContent.style.display = 'none'; // 처음에는 숨기기
+                overlayContent.className = 'info';
+                overlayContent.style.display = 'none';
 
-                // JSX를 렌더링하여 overlayContent에 삽입
                 const overlayComponent = (
                     <MapOverlay
                         title={position.title}
@@ -61,13 +61,13 @@ const MapMarker = ({ map, positions }) => {
                     />
                 );
 
-                // JSX를 HTML로 변환하여 삽입
                 ReactDOM.render(overlayComponent, overlayContent);
 
                 const overlay = new kakao.maps.CustomOverlay({
                     content: overlayContent,
                     map: map,
-                    position: marker.getPosition()
+                    position: marker.getPosition(),
+                    zIndex: 10 // Set zIndex here
                 });
 
                 kakao.maps.event.addListener(marker, 'click', () => {
