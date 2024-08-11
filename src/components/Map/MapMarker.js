@@ -1,58 +1,74 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import MapOverlay from './MapOverlay';
+import { useAuth } from '../Auth/AuthContext'; // AuthContext 파일의 경로
+import ReactDOM from 'react-dom'; // ReactDOM을 import합니다.
 
 const MapMarker = ({ map, positions }) => {
     const { kakao } = window;
-    let activeOverlay = null;
+    const [activeOverlay, setActiveOverlay] = useState(null);
+    const { user } = useAuth();
 
     useEffect(() => {
         if (positions.length > 0) {
             positions.forEach(position => {
-                var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-                var imageSize = new kakao.maps.Size(24, 35);
-                var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+                const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+                const imageSize = new kakao.maps.Size(24, 35);
+                const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
-                var marker = new kakao.maps.Marker({
+                const marker = new kakao.maps.Marker({
                     map: map,
                     position: position.latlng,
                     title: position.title,
                     image: markerImage
                 });
 
-                var overlayContent = document.createElement('div');
-                overlayContent.innerHTML = MapOverlay({ 
-                    title: position.title,
-                    availParkSpace: position.availParkSpace,
-                    totalSpace: position.totalSpace,
-                    address: position.address,
-                    parkingType: position.parkingType,
-                    operationType: position.operationType,
-                    phoneNumber: position.phoneNumber,
-                    freeOrNot: position.freeOrNot,
-                    nightFreeOpenName: position.nightFreeOpenName,
-                    weekdayOpenTime: position.weekdayOpenTime,
-                    weekdayCloseTime: position.weekdayCloseTime,
-                    weekendOpenTime: position.weekendOpenTime,
-                    weekendCloseTime: position.weekendCloseTime,
-                    holidayOpenTime: position.holidayOpenTime,
-                    holidayCloseTime: position.holidayCloseTime,
-                    saturdayFreeOrNot: position.saturdayFreeOrNot,
-                    holidayFreeOrNot: position.holidayFreeOrNot,
-                    monthlyTicketAmount: position.monthlyTicketAmount,
-                    baseParkingFee: position.baseParkingFee,
-                    baseParkingTime: position.baseParkingTime,
-                    additionalFee: position.additionalFee,
-                    additionalTime: position.additionalTime,
-                    maxDailyFee: position.maxDailyFee
-                });
+                const overlayContent = document.createElement('div');
+                overlayContent.style.display = 'none'; // 처음에는 숨기기
 
-                var overlay = new kakao.maps.CustomOverlay({
+                // JSX를 렌더링하여 overlayContent에 삽입
+                const overlayComponent = (
+                    <MapOverlay
+                        title={position.title}
+                        availParkSpace={position.availParkSpace}
+                        totalSpace={position.totalSpace}
+                        address={position.address}
+                        parkingType={position.parkingType}
+                        operationType={position.operationType}
+                        phoneNumber={position.phoneNumber}
+                        freeOrNot={position.freeOrNot}
+                        nightFreeOpenName={position.nightFreeOpenName}
+                        weekdayOpenTime={position.weekdayOpenTime}
+                        weekdayCloseTime={position.weekdayCloseTime}
+                        weekendOpenTime={position.weekendOpenTime}
+                        weekendCloseTime={position.weekendCloseTime}
+                        holidayOpenTime={position.holidayOpenTime}
+                        holidayCloseTime={position.holidayCloseTime}
+                        saturdayFreeOrNot={position.saturdayFreeOrNot}
+                        holidayFreeOrNot={position.holidayFreeOrNot}
+                        monthlyTicketAmount={position.monthlyTicketAmount}
+                        baseParkingFee={position.baseParkingFee}
+                        baseParkingTime={position.baseParkingTime}
+                        additionalFee={position.additionalFee}
+                        additionalTime={position.additionalTime}
+                        maxDailyFee={position.maxDailyFee}
+                        onClose={() => {
+                            overlayContent.style.display = 'none';
+                            setActiveOverlay(null);
+                        }}
+                        onFavoriteToggle={(newFavoriteState) => {
+                            console.log("Favorite toggled:", newFavoriteState);
+                        }}
+                    />
+                );
+
+                // JSX를 HTML로 변환하여 삽입
+                ReactDOM.render(overlayComponent, overlayContent);
+
+                const overlay = new kakao.maps.CustomOverlay({
                     content: overlayContent,
                     map: map,
                     position: marker.getPosition()
                 });
-
-                overlay.setMap(null);
 
                 kakao.maps.event.addListener(marker, 'click', () => {
                     if (activeOverlay) {
@@ -60,16 +76,11 @@ const MapMarker = ({ map, positions }) => {
                     }
                     overlay.setMap(map);
                     overlayContent.style.display = 'block';
-                    activeOverlay = overlay;
-                });
-
-                overlayContent.querySelector('.close').addEventListener('click', () => {
-                    overlayContent.style.display = 'none';
-                    activeOverlay = null;
+                    setActiveOverlay(overlay);
                 });
             });
         }
-    }, [map, positions]);
+    }, [map, positions, activeOverlay]);
 
     return null;
 };
