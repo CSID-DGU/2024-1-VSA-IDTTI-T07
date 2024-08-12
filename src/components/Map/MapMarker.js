@@ -6,8 +6,7 @@ import useFavoriteManager from '../DataControl/FavoriteManager'; // FavoriteMana
 const MapMarker = ({ map, positions }) => {
     const { kakao } = window;
     const [activeOverlay, setActiveOverlay] = useState(null);
-    const [favoriteMarkers, setFavoriteMarkers] = useState({}); // 각 마커별 즐겨찾기 상태 저장
-    const { saveFavorite } = useFavoriteManager(); // FavoriteManager 훅 사용
+    const { favorites, saveFavorite } = useFavoriteManager(); // FavoriteManager 훅 사용
 
     useEffect(() => {
         if (positions.length > 0) {
@@ -27,7 +26,7 @@ const MapMarker = ({ map, positions }) => {
                 overlayContent.className = 'info';
                 overlayContent.style.display = 'none';
 
-                const isFavorite = favoriteMarkers[position.code] || false; // position.title 대신 position.code 사용
+                const isFavorite = favorites[position.code] || false; // position.title 대신 position.code 사용
 
                 const overlayComponent = (
                     <MapOverlay
@@ -60,9 +59,7 @@ const MapMarker = ({ map, positions }) => {
                             setActiveOverlay(null);
                         }}
                         onFavoriteToggle={(newFavoriteState) => {
-                            const updatedFavorites = { ...favoriteMarkers, [position.code]: newFavoriteState };
-                            setFavoriteMarkers(updatedFavorites);
-                            // 서버에 즐겨찾기 상태 저장
+                            // 즐겨찾기 상태를 서버에 저장
                             saveFavorite(position.code, newFavoriteState);
                         }}
                     />
@@ -87,7 +84,7 @@ const MapMarker = ({ map, positions }) => {
                 });
             });
         }
-    }, [map, positions, activeOverlay, favoriteMarkers, saveFavorite]);
+    }, [map, positions, activeOverlay, favorites, saveFavorite]);
 
     return null;
 };
