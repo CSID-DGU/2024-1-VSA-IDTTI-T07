@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const MapOverlay = ({ 
     title,
@@ -24,15 +24,20 @@ const MapOverlay = ({
     additionalFee,
     additionalTime,
     maxDailyFee,
-    onClose, // 닫기 버튼 핸들러
-    onFavoriteToggle // 즐겨찾기 버튼 핸들러
+    onClose, 
+    onFavoriteToggle,
+    isFavorite // 부모 컴포넌트로부터 즐겨찾기 상태를 받음
 }) => {
-    const [isFavorite, setIsFavorite] = useState(false);
+    const [favoriteState, setFavoriteState] = useState(isFavorite);
+
+    useEffect(() => {
+        setFavoriteState(isFavorite); // 부모 컴포넌트로부터 받은 즐겨찾기 상태로 초기화
+    }, [isFavorite]);
 
     const handleFavoriteClick = () => {
-        const newFavoriteState = !isFavorite;
-        setIsFavorite(newFavoriteState);
-        onFavoriteToggle(newFavoriteState); // 부모 컴포넌트에 상태 전송
+        const newFavoriteState = !favoriteState;
+        setFavoriteState(newFavoriteState);
+        onFavoriteToggle(newFavoriteState);
     };
 
     return (
@@ -43,17 +48,17 @@ const MapOverlay = ({
                     className="close" 
                     title="닫기" 
                     style={{ cursor: 'pointer' }} 
-                    onClick={onClose} // 닫기 버튼 클릭 핸들러
+                    onClick={onClose}
                 />
-                <button 
-                    className="favorite-button" 
-                    style={{ cursor: 'pointer', color: isFavorite ? 'red' : 'gray' }}
-                    onClick={handleFavoriteClick}
-                >
-                    {isFavorite ? '♥ 즐겨찾기' : '♡ 즐겨찾기'}
-                </button>
             </div>
             <div className="container">
+                <button 
+                    className="favorite-button" 
+                    style={{ cursor: 'pointer', color: favoriteState ? 'red' : 'gray' }}
+                    onClick={handleFavoriteClick}
+                >
+                    {favoriteState ? '♥ 즐겨찾기' : '♡ 즐겨찾기'}
+                </button>
                 <div className="inner-container">
                     <div className="content">
                         <div>

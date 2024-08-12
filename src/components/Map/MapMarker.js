@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import MapOverlay from './MapOverlay';
-import { useAuth } from '../Auth/AuthContext';
 import ReactDOM from 'react-dom';
+import useFavoriteManager from '../DataControl/FavoriteManager'; // FavoriteManager import
 
 const MapMarker = ({ map, positions }) => {
     const { kakao } = window;
     const [activeOverlay, setActiveOverlay] = useState(null);
-    const { user } = useAuth();
+    const [favoriteMarkers, setFavoriteMarkers] = useState({}); // 각 마커별 즐겨찾기 상태 저장
+    const { saveFavorite } = useFavoriteManager(); // FavoriteManager 훅 사용
 
     useEffect(() => {
         if (positions.length > 0) {
@@ -25,6 +26,8 @@ const MapMarker = ({ map, positions }) => {
                 const overlayContent = document.createElement('div');
                 overlayContent.className = 'info';
                 overlayContent.style.display = 'none';
+
+                const isFavorite = favoriteMarkers[position.code] || false; // position.title 대신 position.code 사용
 
                 const overlayComponent = (
                     <MapOverlay
@@ -51,12 +54,16 @@ const MapMarker = ({ map, positions }) => {
                         additionalFee={position.additionalFee}
                         additionalTime={position.additionalTime}
                         maxDailyFee={position.maxDailyFee}
+                        isFavorite={isFavorite} // 즐겨찾기 상태 전달
                         onClose={() => {
                             overlayContent.style.display = 'none';
                             setActiveOverlay(null);
                         }}
                         onFavoriteToggle={(newFavoriteState) => {
-                            console.log("Favorite toggled:", newFavoriteState);
+                            const updatedFavorites = { ...favoriteMarkers, [position.code]: newFavoriteState };
+                            setFavoriteMarkers(updatedFavorites);
+                            // 서버에 즐겨찾기 상태 저장
+                            saveFavorite(position.code, newFavoriteState);
                         }}
                     />
                 );
@@ -67,7 +74,7 @@ const MapMarker = ({ map, positions }) => {
                     content: overlayContent,
                     map: map,
                     position: marker.getPosition(),
-                    zIndex: 10 // Set zIndex here
+                    zIndex: 10
                 });
 
                 kakao.maps.event.addListener(marker, 'click', () => {
@@ -80,7 +87,7 @@ const MapMarker = ({ map, positions }) => {
                 });
             });
         }
-    }, [map, positions, activeOverlay]);
+    }, [map, positions, activeOverlay, favoriteMarkers, saveFavorite]);
 
     return null;
 };

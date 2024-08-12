@@ -7,6 +7,7 @@ const ParkingDataFetcher = ({ setPositions }) => {
         axios.get('http://localhost:8080/api/parking')
             .then(response => {
                 const data = response.data.map(parkingCode => ({
+                    code:parkingCode.code,
                     title: parkingCode.parkingName, //주차장 이름
                     availParkSpace: parkingCode.availParkSpace, //주차 가능면
                     totalSpace: parkingCode.totalSpace, // 전체 주차면
