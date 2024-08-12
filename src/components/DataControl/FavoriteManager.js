@@ -37,7 +37,17 @@ const useFavoriteManager = () => {
         }
     };
 
-    return { favorites, saveFavorite };
+    const getFavoriteParkingData = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8080/api/favorite-parking?email=${user.email}`);
+            return response.data; // 주차장 데이터를 반환
+        } catch (error) {
+            console.error('Failed to fetch favorite parking data:', error);
+            return [];
+        }
+    };
+
+    return { favorites, saveFavorite, getFavoriteParkingData };
 };
 
 export default useFavoriteManager;

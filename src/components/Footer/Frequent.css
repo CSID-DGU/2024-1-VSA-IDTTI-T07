@@ -1,26 +1,67 @@
-/* Accordion.css */
-.accordion {
-    position: fixed;
-    bottom: -100%; /* 아코디언이 닫혔을 때 */
-    left: 0;
-    width: 100%;
-    height: 50%;
-    background: #ffffff;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-    transition: bottom 0.3s ease-in-out;
-    z-index: 1000; /* Header와 Footer 위에 표시되도록 z-index 설정 */
-  }
-  
-  .accordion.open {
-    bottom: 10; /* 아코디언이 열렸을 때 */
-  }
-  
-  .accordion-item {
-    padding: 20px;
-  }
-  
-  .accordion-body {
-    padding: 10px;
-    border-top: 1px solid #dddddd;
-  }
-  
+/* 기본 컨테이너 스타일 */
+.frequent-container {
+  margin: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-height: 400px; /* 스크롤 적용을 위해 최대 높이 설정 */
+  overflow-y: auto;  /* 스크롤을 적용 */
+}
+
+/* 제목 스타일 */
+.frequent-container h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* 주차장 목록 스타일 */
+.frequent-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* 각 주차장 항목 스타일 */
+.frequent-list li {
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.frequent-list li:hover {
+  background-color: #f0f0f0;
+}
+
+/* 주차장 이름 스타일 */
+.frequent-list li strong {
+  font-size: 18px;
+  color: #555;
+}
+
+/* 주차장 정보 스타일 */
+.frequent-list li span {
+  font-size: 14px;
+  color: #777;
+}
+
+/* 스크롤바 스타일링 (옵션) */
+.frequent-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.frequent-container::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+.frequent-container::-webkit-scrollbar-track {
+  background-color: #f9f9f9;
+}
