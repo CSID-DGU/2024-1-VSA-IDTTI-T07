@@ -20,6 +20,9 @@ function Home() {
       <div className={`accordion ${isAccordionOpen ? 'open' : ''}`}>
         <div className="accordion-item">
           <div className="accordion-body">
+            <button className="close-button" onClick={toggleAccordion}>
+              닫기
+            </button>
             <Frequent />
           </div>
         </div>
