@@ -120,27 +120,27 @@ const MapOverlay = ({
                             </div>
                             <div className="detail-item">
                                 <h2 className="detail-title">월 정기권 금액</h2>
-                                <span>{(monthlyTicketAmount || "미제공") + "원"}</span>
+                                <span>{(monthlyTicketAmount +"원" || "미제공")}</span>
                             </div>
                             <div className="detail-item">
                                 <h2 className="detail-title">기본 주차 요금</h2>
-                                <span>{(baseParkingFee || "미제공") + "원"}</span>
+                                <span>{(baseParkingFee +"원" || "미제공")}</span>
                             </div>
                             <div className="detail-item">
                                 <h2 className="detail-title">기본 주차 시간</h2>
-                                <span>{(baseParkingTime || "미제공") + "분"}</span>
+                                <span>{(baseParkingTime+"분" || "미제공")}</span>
                             </div>
                             <div className="detail-item">
                                 <h2 className="detail-title">추가 단위 요금</h2>
-                                <span>{(additionalFee || "미제공") + "원"}</span>
+                                <span>{(additionalFee+"원" || "미제공")}</span>
                             </div>
                             <div className="detail-item">
                                 <h2 className="detail-title">추가 단위 시간</h2>
-                                <span>{(additionalTime || "미제공") + "분"}</span>
+                                <span>{(additionalTime+"분" || "미제공")}</span>
                             </div>
                             <div className="detail-item">
                                 <h2 className="detail-title">일 최대 요금</h2>
-                                <span>{(maxDailyFee || "미제공") + "원"}</span>
+                                <span>{(maxDailyFee+"원" || "미제공")}</span>
                             </div>
                         </div>
                     </div>
