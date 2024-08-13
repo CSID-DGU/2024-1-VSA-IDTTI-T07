@@ -9,11 +9,34 @@
   overflow-y: auto;  /* 스크롤을 적용 */
 }
 
+/* 헤더 스타일 */
+.frequent-header {
+  text-align: center; /* 헤더 내의 텍스트와 버튼을 가운데 정렬 */
+  margin-bottom: 15px;
+}
+
 /* 제목 스타일 */
 .frequent-container h2 {
   font-size: 24px;
   color: #333;
   margin-bottom: 15px;
+}
+
+/* 새로고침 버튼 스타일 */
+.refresh-button {
+  display: inline-block;
+  margin-bottom: 15px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.refresh-button:hover {
+  background-color: #45a049;
 }
 
 /* 주차장 목록 스타일 */

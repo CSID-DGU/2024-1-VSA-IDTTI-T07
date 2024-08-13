@@ -17,8 +17,12 @@ const Frequent = () => {
 
     return (
         <div className="frequent-container">
-            <h2>주차장 즐겨찾기 목록</h2>
-            <button onClick={fetchFavoriteParkings}>즐겨찾기 목록 새로고침</button>
+            <div className="frequent-header">
+                <h2>주차장 즐겨찾기 목록</h2>
+                <button className="refresh-button" onClick={fetchFavoriteParkings}>
+                    즐겨찾기 목록 새로고침
+                </button>
+            </div>
             <ul className="frequent-list">
                 {favoriteParkings.map(parking => (
                     <li key={parking.code}>
