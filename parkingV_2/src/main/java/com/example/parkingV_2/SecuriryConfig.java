@@ -21,7 +21,7 @@ public class SecuriryConfig {
                         "/signup",
                         "/api/login",
                         "/api/favorite",
-                        "/api/favorite?**")
+                        "api/favorite-parking")
                 .permitAll()
                 .requestMatchers("/admin").hasRole("ADMIN") // ADMIN이라는 role이 있으면 접근 할 수 있음
                 .requestMatchers("/my/**").hasAnyRole("ANDMIN","USER") // my 뒤에 각 유저정보가 들어올 수 있도록 **(와일드카드)를 통해서 설정

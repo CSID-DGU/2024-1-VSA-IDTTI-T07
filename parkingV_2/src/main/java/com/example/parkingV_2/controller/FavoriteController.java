@@ -2,6 +2,7 @@ package com.example.parkingV_2.controller;
 
 import com.example.parkingV_2.dto.FavoriteDTO;
 import com.example.parkingV_2.entity.FavoriteEntity;
+import com.example.parkingV_2.entity.ParkingCodes;
 import com.example.parkingV_2.service.FavoriteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,14 @@ public class FavoriteController {
 
     @GetMapping("/api/favorite")
     public ResponseEntity<List<FavoriteEntity>> getFavoriteData(@RequestParam String email) {
-        log.info("email : " + email);
+        log.info("/api/favorite 요청");
         List<FavoriteEntity> favorites = favoriteService.findByEmail(email);
         return ResponseEntity.ok(favorites);
+    }
+    @GetMapping("/api/favorite-parking")
+    public ResponseEntity<List<ParkingCodes>> getFavoriteParkingData(@RequestParam String email) {
+        log.info("/api/favorite-parking 요청");
+        List<ParkingCodes> parkingCodesList = favoriteService.findParkingDataByEmail(email);
+        return ResponseEntity.ok(parkingCodesList);
     }
 }
