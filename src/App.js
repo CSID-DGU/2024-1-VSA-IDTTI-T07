@@ -7,10 +7,15 @@ import Search from './pages/Search';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ExampleComponent from './pages/ExampleComponent'
+import Location from './pages/Location'
+import { PredictionProvider } from './context/PredictionContext';
+import Predict from './pages/Predict'
+
 
 const App = () => {
     return (
         <AuthProvider>
+            <PredictionProvider>
             <Router>
                 <Routes>
                     <Route path="/" element={<Navigate to="/home" />} />
@@ -19,9 +24,13 @@ const App = () => {
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/example" element={<ExampleComponent />} />
+                    <Route path="/location" element={<Location />} />
+                    <Route path="/location/predict" element={<Predict />} />
+
                     {/* 다른 페이지 라우트를 여기에 추가합니다. */}
                 </Routes>
             </Router>
+            </PredictionProvider>
         </AuthProvider>
     );
 };

@@ -1,6 +1,6 @@
 #map {
-    width: 90%; /* 지도의 너비를 80%로 설정하여 화면 크기에 맞게 조정 */
-    height: 82vh; 
+    width: 100%; /* 지도의 너비를 80%로 설정하여 화면 크기에 맞게 조정 */
+    height: 83vh; 
     margin: auto;
     margin-top: 3px; /* 헤더와 지도의 사이 여백을 줄임 */
 }
