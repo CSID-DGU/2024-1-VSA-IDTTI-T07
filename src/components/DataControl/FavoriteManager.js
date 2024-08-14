@@ -24,6 +24,12 @@ const useFavoriteManager = () => {
     }, [user]);
 
     const saveFavorite = async (positionCode, isFavorite) => {
+        if (!user) {
+            console.error('User is not logged in.');
+            alert('로그인 후 이용해주세요.');
+            return; // 로그인하지 않은 경우 함수 실행 중단
+        }
+    
         try {
             await axios.post('http://localhost:8080/api/favorite', {
                 email: user.email, // 현재 사용자 이메일
@@ -33,7 +39,7 @@ const useFavoriteManager = () => {
             setFavorites(prev => ({ ...prev, [positionCode]: isFavorite }));
         } catch (error) {
             console.error('Failed to save favorite:', error);
-            alert('로그인 후 이용해주세요.');
+            alert('즐겨찾기 상태 저장에 실패했습니다.');
         }
     };
 
