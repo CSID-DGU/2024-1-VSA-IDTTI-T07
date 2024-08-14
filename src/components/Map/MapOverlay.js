@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const MapOverlay = ({ 
+const MapOverlay = ({
     title,
     availParkSpace,
     totalSpace,
@@ -24,14 +24,14 @@ const MapOverlay = ({
     additionalFee,
     additionalTime,
     maxDailyFee,
-    onClose, 
+    onClose,
     onFavoriteToggle,
-    isFavorite // 부모 컴포넌트로부터 즐겨찾기 상태를 받음
+    isFavorite
 }) => {
     const [favoriteState, setFavoriteState] = useState(isFavorite);
 
     useEffect(() => {
-        setFavoriteState(isFavorite); // 부모 컴포넌트로부터 받은 즐겨찾기 상태로 초기화
+        setFavoriteState(isFavorite);
     }, [isFavorite]);
 
     const handleFavoriteClick = () => {
@@ -40,20 +40,24 @@ const MapOverlay = ({
         onFavoriteToggle(newFavoriteState);
     };
 
+    const preventMapScroll = (event) => {
+        event.stopPropagation(); // 이벤트 버블링을 중지시켜 지도에 영향을 미치지 않도록 함
+    };
+
     return (
-        <div className="info">
+        <div className="info" onWheel={preventMapScroll}>
             <div className="title">
                 {title || "미제공"}
-                <div 
-                    className="close" 
-                    title="닫기" 
-                    style={{ cursor: 'pointer' }} 
+                <div
+                    className="close"
+                    title="닫기"
+                    style={{ cursor: 'pointer' }}
                     onClick={onClose}
                 />
             </div>
             <div className="container">
-                <button 
-                    className="favorite-button" 
+                <button
+                    className="favorite-button"
                     style={{ cursor: 'pointer', color: favoriteState ? 'red' : 'gray' }}
                     onClick={handleFavoriteClick}
                 >
@@ -120,27 +124,27 @@ const MapOverlay = ({
                             </div>
                             <div className="detail-item">
                                 <h2 className="detail-title">월 정기권 금액</h2>
-                                <span>{(monthlyTicketAmount +"원" || "미제공")}</span>
+                                <span>{(monthlyTicketAmount + "원" || "미제공")}</span>
                             </div>
                             <div className="detail-item">
                                 <h2 className="detail-title">기본 주차 요금</h2>
-                                <span>{(baseParkingFee +"원" || "미제공")}</span>
+                                <span>{(baseParkingFee + "원" || "미제공")}</span>
                             </div>
                             <div className="detail-item">
                                 <h2 className="detail-title">기본 주차 시간</h2>
-                                <span>{(baseParkingTime+"분" || "미제공")}</span>
+                                <span>{(baseParkingTime + "분" || "미제공")}</span>
                             </div>
                             <div className="detail-item">
                                 <h2 className="detail-title">추가 단위 요금</h2>
-                                <span>{(additionalFee+"원" || "미제공")}</span>
+                                <span>{(additionalFee + "원" || "미제공")}</span>
                             </div>
                             <div className="detail-item">
                                 <h2 className="detail-title">추가 단위 시간</h2>
-                                <span>{(additionalTime+"분" || "미제공")}</span>
+                                <span>{(additionalTime + "분" || "미제공")}</span>
                             </div>
                             <div className="detail-item">
                                 <h2 className="detail-title">일 최대 요금</h2>
-                                <span>{(maxDailyFee+"원" || "미제공")}</span>
+                                <span>{(maxDailyFee + "원" || "미제공")}</span>
                             </div>
                         </div>
                     </div>
