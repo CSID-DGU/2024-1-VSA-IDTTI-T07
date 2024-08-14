@@ -35,6 +35,10 @@ const UserLogin = () => {
         navigate('/signup');
     };
 
+    const handleGoBack = () => {
+        navigate(-1); // 이전 페이지로 이동
+    };
+
     return (
         <div className="login-form-container">
             <form onSubmit={handleLogin} className="login-form">
@@ -62,6 +66,9 @@ const UserLogin = () => {
                 </div>
                 <div>
                     <button type="button" onClick={signupRedirect} className="signup-button">Signup</button>
+                </div>
+                <div>
+                    <button type="button" onClick={handleGoBack} className="back-button">Back</button>
                 </div>
             </form>
         </div>
