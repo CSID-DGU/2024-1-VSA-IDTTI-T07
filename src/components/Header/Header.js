@@ -22,6 +22,7 @@ const Header = () => {
         if (searchQuery.trim() === '') return;
         setGlobalSearchQuery(searchQuery);
         // 추가로 검색 처리를 여기에서 할 수 있습니다.
+        setIsSearchOpen(false); // 검색 완료 후 검색창 닫기
     };
 
     return (
