@@ -5,14 +5,14 @@ import { usePrediction } from '../../context/PredictionContext'; // 예측 데�
 const ParkPredictFetcher = ({ setPositions }) => {
     const { kakao } = window;
     const { prediction } = usePrediction(); // context에서 예측 데이터를 가져옴
-    console.log('Prediction data:', prediction);
+    // console.log('Prediction data:', prediction);
 
     useEffect(() => {
         const fetchParkingData = async () => {
             try {
                 // 예측 데이터가 배열인지 확인
                 const predictionsArray = Array.isArray(prediction) ? prediction : [];
-                console.log('Normalized Prediction data:', predictionsArray);
+                // console.log('Normalized Prediction data:', predictionsArray);
 
                 // 주차장 정보 가져오기
                 const parkingResponse = await axios.get('http://localhost:8080/api/parking');

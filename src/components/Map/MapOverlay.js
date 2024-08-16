@@ -61,7 +61,7 @@ const MapOverlay = ({
                     style={{ cursor: 'pointer', color: favoriteState ? 'red' : 'gray' }}
                     onClick={handleFavoriteClick}
                 >
-                    {favoriteState ? '♥ 즐겨찾기' : '♡ 즐겨찾기'}
+                    {favoriteState ? '★ 즐겨찾기' : '☆ 즐겨찾기'}
                 </button>
                 <div className="inner-container">
                     <div className="content">

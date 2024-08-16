@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import MLMapOverlay from './MLMapOverlay';
+import { usePrediction } from '../../context/PredictionContext'; // 예측 데이터를 가져오기 위해 context 사용
 
 const MLMapMarker = ({ map, positions }) => {
     const { kakao } = window;
     const [activeOverlay, setActiveOverlay] = useState(null);
+    const { prediction } = usePrediction(); // context에서 예측 데이터를 가져옴
+    console.log('예측데이터:', prediction);
 
     useEffect(() => {
         console.log('Positions:', positions);
@@ -26,10 +29,14 @@ const MLMapMarker = ({ map, positions }) => {
                 overlayContent.className = 'info';
                 overlayContent.style.display = 'none';
 
+                // const result = prediction.predictions.find(item => item.parking_code === position.code);
+                const result = prediction.predictions.find(item => item.parking_code.toString() === position.code);
+
+                console.log("result : " + result);
                 const overlayComponent = (
                     <MLMapOverlay
                         title={position.title}
-                        p_availableSpace={position.p_availableSpace} // 예측된 빈자리수
+                        p_availableSpace={result ? result.predicted_avail_park_space : null} // 객체의 특정 속성만 전달
                         totalSpace={position.totalSpace} // 전체 주차면
                         address={position.address}
                         onClose={() => {
