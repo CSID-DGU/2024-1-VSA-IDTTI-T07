@@ -39,7 +39,7 @@ const useFavoriteManager = () => {
             setFavorites(prev => ({ ...prev, [positionCode]: isFavorite }));
         } catch (error) {
             console.error('Failed to save favorite:', error);
-            alert('즐겨찾기 상태 저장에 실패했습니다.');
+            // alert('즐겨찾기 상태 저장에 실패했습니다.');
         }
     };
 
