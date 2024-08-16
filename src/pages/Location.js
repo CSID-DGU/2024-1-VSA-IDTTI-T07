@@ -3,11 +3,11 @@ import axios from 'axios';
 import '../App.css';
 import Footer from '../components/Footer/Footer';
 import Frequent from '../components/Footer/Frequent';
-import { usePrediction } from '../context/PredictionContext';
+import { usePrediction } from '../context/PredictionContext'; // 예측 데이터 저장을 위한 context
 import { useNavigate } from 'react-router-dom';
 
 const Location = () => {
-    const { setPrediction } = usePrediction();
+    const { setPrediction } = usePrediction(); // context에서 예측 데이터를 저장할 수 있는 함수
     const [isAccordionOpen, setIsAccordionOpen] = useState(false);
     const [destination, setDestination] = useState('');
     const [meridiem, setMeridiem] = useState('AM');
@@ -24,7 +24,6 @@ const Location = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        // 사용자가 선택한 시간이 오전/오후인지, 시간과 분이 무엇인지 받아와서 24시간 형식으로 변환
         let adjustedHour = parseInt(hour, 10);
         if (meridiem === 'PM' && adjustedHour !== 12) {
             adjustedHour += 12;
@@ -33,7 +32,6 @@ const Location = () => {
         }
 
         try {
-            // 현재 날짜를 기반으로 요일 계산
             const currentDate = new Date();
             currentDate.setHours(adjustedHour);
             currentDate.setMinutes(minute);
@@ -43,7 +41,6 @@ const Location = () => {
 
             setWeekday(calculatedWeekday);
 
-            // 백엔드로 GET 요청 보내기
             const response = await axios.get('http://localhost:8080/api/predict', {
                 params: {
                     hour: adjustedHour,
@@ -52,14 +49,14 @@ const Location = () => {
                 }
             });
 
-            // 응답 데이터 처리
-            console.log('Predictions:', response.data.predictions);
-            // alert(`예측된 주차 공간: ${JSON.stringify(response.data.predictions)}`);
+            // 예측 결과를 context에 저장
             setPrediction(response.data);
+
+            // 예측 페이지로 이동
             navigate('/location/predict');
 
         } catch (error) {
-            console.error('Error during prediction request:', error);
+            console.error('예측 요청 중 오류가 발생했습니다:', error);
             alert('예측 요청 중 오류가 발생했습니다.');
         }
     };

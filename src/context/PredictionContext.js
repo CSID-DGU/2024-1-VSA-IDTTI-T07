@@ -5,7 +5,8 @@ const PredictionContext = createContext();
 
 // Create a provider component
 export const PredictionProvider = ({ children }) => {
-    const [prediction, setPrediction] = useState(null);
+    // Initialize prediction as an empty array
+    const [prediction, setPrediction] = useState([]);
 
     return (
         <PredictionContext.Provider value={{ prediction, setPrediction }}>

@@ -1,24 +1,34 @@
-// Results.js
-import React from 'react';
-import { usePrediction } from '../context/PredictionContext';
+import React, { useState } from 'react';
+import '../App.css';
+import MLMap from '../components/Prediction/MLMap';
+import Header from '../components/Header/Header';
+import Footer from '../components/Footer/Footer';
+import Frequent from '../components/Footer/Frequent';
 
-const Results = () => {
-    const { prediction } = usePrediction();
+function Predict() {
+  const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 
-    if (!prediction) return <p>No prediction data available.</p>;
+  const toggleAccordion = () => {
+    setIsAccordionOpen(!isAccordionOpen);
+  };
 
-    return (
-        <div>
-            <h2>Prediction Results</h2>
-            <ul>
-                {prediction.predictions.map((item) => (
-                    <li key={item.parking_code}>
-                        Parking Code: {item.parking_code}, Available Spaces: {item.predicted_avail_park_space}
-                    </li>
-                ))}
-            </ul>
+  return (
+    <div className="App">
+      <Header />
+      <MLMap />
+      <Footer toggleAccordion={toggleAccordion} />
+      <div className={`accordion ${isAccordionOpen ? 'open' : ''}`}>
+        <div className="accordion-item">
+          <div className="accordion-body">
+            <button className="close-button" onClick={toggleAccordion}>
+              닫기
+            </button>
+            <Frequent />
+          </div>
         </div>
-    );
-};
+      </div>
+    </div>
+  );
+}
 
-export default Results;
+export default Predict;
