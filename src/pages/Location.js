@@ -13,7 +13,7 @@ const Location = () => {
     const [meridiem, setMeridiem] = useState('AM');
     const [hour, setHour] = useState('');
     const [minute, setMinute] = useState('');
-    const [weekday, setWeekday] = useState('');
+    const [weekday, setWeekday] = useState('Sunday');
 
     const navigate = useNavigate();
 
@@ -32,20 +32,11 @@ const Location = () => {
         }
 
         try {
-            const currentDate = new Date();
-            currentDate.setHours(adjustedHour);
-            currentDate.setMinutes(minute);
-
-            const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-            const calculatedWeekday = weekdays[currentDate.getDay()];
-
-            setWeekday(calculatedWeekday);
-
             const response = await axios.get('http://localhost:8080/api/predict', {
                 params: {
                     hour: adjustedHour,
                     minute: parseInt(minute, 10),
-                    weekday: calculatedWeekday
+                    weekday: weekday
                 }
             });
 
@@ -100,6 +91,21 @@ const Location = () => {
                         min="0" 
                         max="59"
                     />
+                </div>
+                <div>
+                    <label>요일:</label>
+                    <select 
+                        value={weekday} 
+                        onChange={(e) => setWeekday(e.target.value)}
+                    >
+                        <option value="Sunday">일요일</option>
+                        <option value="Monday">월요일</option>
+                        <option value="Tuesday">화요일</option>
+                        <option value="Wednesday">수요일</option>
+                        <option value="Thursday">목요일</option>
+                        <option value="Friday">금요일</option>
+                        <option value="Saturday">토요일</option>
+                    </select>
                 </div>
                 <button type="submit">설정</button>
             </form>
