@@ -11,6 +11,7 @@ public class FavoriteEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(unique = true) // 닉네임 중복안되게
     private Long code;
     @ManyToOne
     @JoinColumn(name = "user_email")//외래키 생성

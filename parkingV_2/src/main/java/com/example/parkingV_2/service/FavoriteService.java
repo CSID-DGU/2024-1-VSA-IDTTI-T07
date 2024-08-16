@@ -9,11 +9,13 @@ import com.example.parkingV_2.repository.ParkingCodesRepository;
 import com.example.parkingV_2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class FavoriteService {
 
     @Autowired
@@ -22,6 +24,7 @@ public class FavoriteService {
     private UserRepository userRepository; // UserRepository 추가
     @Autowired
     private ParkingCodesRepository parkingCodesRepository;
+
 
     public FavoriteEntity saveFavoriteData(FavoriteDTO dto) {
         // email로 UserEntity 조회
@@ -33,9 +36,13 @@ public class FavoriteService {
         favoriteEntity.setCode(dto.getCode());
         favoriteEntity.setFavorite(dto.getFavorite());
         favoriteEntity.setUser(userEntity); // email 대신 user 설정
-
+        if (!dto.getFavorite()) {
+            favoriteRepository.deleteByCode(dto.getCode());
+            return null;
+        }
         // 저장
         return favoriteRepository.save(favoriteEntity);
+
     }
 
 

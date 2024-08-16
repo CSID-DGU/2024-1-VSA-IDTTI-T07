@@ -11,4 +11,6 @@ import java.util.List;
 public interface FavoriteRepository extends JpaRepository<FavoriteEntity, Long> {
 
     List<FavoriteEntity> findAllByUser(UserEntity user);
+
+    void deleteByCode(Long code);
 }
