@@ -1,24 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import MLMapOverlay from './MLMapOverlay';
-import { usePrediction } from '../../context/PredictionContext'; // 예측 데이터를 가져오기 위해 context 사용
+import { usePrediction } from '../../context/PredictionContext';
+import SendCodesComponent from './SendCodesComponent'; // 새 컴포넌트 import
 
 const MLMapMarker = ({ map, positions }) => {
     const { kakao } = window;
     const [activeOverlay, setActiveOverlay] = useState(null);
-    const [distances, setDistances] = useState([]); // 거리와 코드를 저장할 상태
-    const { prediction } = usePrediction(); // context에서 예측 데이터를 가져옴
-    
+    const [distances, setDistances] = useState([]);
+    const [filteredCodes, setFilteredCodes] = useState([]); // 필터링된 코드를 저장할 상태
+    const { prediction } = usePrediction();
 
     const lat = 37.558050422481784;
     const longi = 127.0009223949609;
 
     useEffect(() => {
-        console.log('Positions:', positions);
-        console.log('Map:', map);
-
         if (positions.length > 0) {
-            const newDistances = []; // 새로운 배열을 생성
+            const newDistances = [];
 
             positions.forEach(position => {
                 const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
@@ -36,21 +34,16 @@ const MLMapMarker = ({ map, positions }) => {
                 overlayContent.className = 'info';
                 overlayContent.style.display = 'none';
 
-                // 거리 계산
-                const distance = getDistanceFromLatLonInKm(lat, longi, position.latitude, position.longitude);
-                console.log("type_latitude : " +typeof(position.latitude))
-                // 거리와 코드 쌍을 배열에 추가
+                const distance = getDistanceFromLatLonInKm(lat, longi, position.latlng.Ma, position.latlng.La);
                 newDistances.push({ code: position.code, distance: distance });
 
-                // const result = prediction.predictions.find(item => item.parking_code === position.code);
                 const result = prediction.predictions.find(item => item.parking_code.toString() === position.code);
 
-                console.log("result : " + result);
                 const overlayComponent = (
                     <MLMapOverlay
                         title={position.title}
-                        p_availableSpace={result ? result.predicted_avail_park_space : null} // 객체의 특정 속성만 전달
-                        totalSpace={position.totalSpace} // 전체 주차면
+                        p_availableSpace={result ? result.predicted_avail_park_space : null}
+                        totalSpace={position.totalSpace}
                         address={position.address}
                         onClose={() => {
                             overlayContent.style.display = 'none';
@@ -78,29 +71,38 @@ const MLMapMarker = ({ map, positions }) => {
                 });
             });
 
-            // distances 상태를 업데이트
             setDistances(newDistances);
-            console.log('Calculated Distances:', distances);
+
+            // 거리가 1보다 작은 코드만 필터링
+            const codes = newDistances
+                .filter(item => item.distance < 1)
+                .map(item => item.code);
+
+            setFilteredCodes(codes);
+            
         }
     }, [map, positions, activeOverlay]);
 
-    return null;
+    return (
+        <>
+            <SendCodesComponent codes={filteredCodes} />
+        </>
+    );
 };
 
 export default MLMapMarker;
 
-
-function getDistanceFromLatLonInKm(lat1, lng1, lat2, lng2) {//lat1:위도1, lng1:경도1, lat2:위도2, lat2:경도2
+function getDistanceFromLatLonInKm(lat1, lng1, lat2, lng2) {
     function deg2rad(deg) {
         return deg * (Math.PI / 180);
     }
-    var R = 6371; // Radius of the earth in km
-    var dLat = deg2rad(lat2 - lat1);  // deg2rad below
-    var dLon = deg2rad(lng2 - lng1);
-    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    const R = 6371; 
+    const dLat = deg2rad(lat2 - lat1); 
+    const dLon = deg2rad(lng2 - lng1);
+    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
         Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
         Math.sin(dLon / 2) * Math.sin(dLon / 2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    var d = R * c; // Distance in km
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const d = R * c;
     return d;
 }
