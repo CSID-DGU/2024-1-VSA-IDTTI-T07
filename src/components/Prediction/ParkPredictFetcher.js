@@ -28,6 +28,8 @@ const ParkPredictFetcher = ({ setPositions }) => {
                         totalSpace: parking.totalSpace,
                         p_availableSpace: predictionData ? predictionData.predicted_avail_park_space : null, // 예측된 빈자리수
                         address: parking.address,
+                        latitude : parking.latitude,
+                        longitude : parking.longitude,
                         latlng: new kakao.maps.LatLng(parking.latitude, parking.longitude)
                     };
                 });
