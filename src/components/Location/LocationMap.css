@@ -1,0 +1,224 @@
+#map {
+    width: 80%; /* 지도의 너비를 80%로 설정하여 화면 크기에 맞게 조정 */
+    height: 83vh; 
+    margin: auto;
+    margin-top: 10px; /* 헤더와 지도의 사이 여백을 설정 */
+    border-radius: 10px; /* 지도의 모서리를 둥글게 설정 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+}
+
+.wrap {
+    position: absolute;
+    left: 50%;
+    bottom: 40px;
+    width: 300px;
+    transform: translateX(-50%); /* 가로 방향으로 중앙 정렬 */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.wrap .info {
+    padding: 15px;
+    border-bottom: 2px solid #ccc;
+}
+
+.info .title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    text-align: center; /* 텍스트 가운데 정렬 */
+    background-color: #f8f9fa; /* 연한 배경색 추가 */
+    padding: 10px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.info .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
+    cursor: pointer; /* 커서가 포인터로 변경 */
+}
+
+.info .close:hover {
+    opacity: 0.7; /* 마우스 오버 시 투명도 변경 */
+}
+
+.info .desc {
+    font-size: 14px;
+    color: #555;
+    margin-top: 10px;
+    line-height: 1.6;
+}
+
+.info:after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -10px;
+    transform: translateX(-50%);
+    width: 22px;
+    height: 12px;
+    background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png');
+}
+
+/* 미디어 쿼리 추가 */
+@media (max-width: 768px) {
+    #map {
+        width: 90%;
+        height: 80vh; 
+        margin-top: 10px; 
+    }
+
+    .wrap {
+        bottom: 20px;
+        width: 90%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .info .title {
+        font-size: 18px;
+    }
+
+    .info .desc {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    #map {
+        width: 100%;
+        height: 75vh; 
+        margin-top: 10px;
+    }
+
+    .wrap {
+        bottom: 15px;
+        width: 95%;
+    }
+
+    .info .title {
+        font-size: 16px;
+    }
+
+    .info .desc {
+        font-size: 12px;
+    }
+}
+
+/* 컨테이너 스타일 */
+.container {
+    background-color: #e2e8f0; /* 연한 회색 배경 */
+    padding: 16px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+}
+
+.inner-container {
+    margin: 0 auto;
+    max-width: 300px;
+    background-color: #bfdbfe; /* 연한 파란색 배경 */
+    padding: 16px;
+    border-radius: 10px;
+}
+
+.content {
+    height: 300px;
+    overflow: auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.title {
+    font-size: 1.5rem; /* 큰 제목 글꼴 크기 */
+    font-weight: bold;
+    color: #facc15; /* 노란색 글자 */
+}
+
+.address {
+    margin-top: 8px;
+    color: #6b7280; /* 중간 회색 글자 */
+}
+
+.divider {
+    margin: 16px 0;
+    border-top: 2px solid #d1d5db;
+}
+
+.parking-info-header {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.header-item {
+    height: 32px;
+    text-align: center;
+    font-weight: bold;
+    flex: 1;
+}
+
+.parking-info {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.parking-spot {
+    height: 40px;
+    width: 80px;
+    border-radius: 8px;
+    border: 2px solid #fcd34d; /* 노란색 테두리 */
+    background-color: #ffffff;
+    text-align: center;
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.details {
+    margin-top: 20px;
+}
+
+.detail-item {
+    margin: 12px 0;
+    text-align: center;
+}
+
+.detail-title {
+    font-weight: bold;
+    color: #60a5fa; /* 파란색 글자 */
+}
+
+.favorite-button {
+    display: block;
+    margin: 20px auto 0 auto;
+    padding: 10px 20px;
+    background-color: transparent;
+    color: gray;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: color 0.3s;
+    border: 2px solid #fcd34d; /* 노란색 테두리 추가 */
+    cursor: pointer;
+    text-align: center;
+}
+
+.favorite-button:hover {
+    color: darkred;
+    background-color: #fcd34d; /* 노란색 배경 추가 */
+    border-color: darkred; /* 테두리 색상 변경 */
+}

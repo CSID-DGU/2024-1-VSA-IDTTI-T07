@@ -3,11 +3,14 @@ import axios from 'axios';
 import '../App.css';
 import Footer from '../components/Footer/Footer';
 import Frequent from '../components/Footer/Frequent';
-import { usePrediction } from '../context/PredictionContext'; // 예측 데이터 저장을 위한 context
+import { usePrediction } from '../context/PredictionContext';
 import { useNavigate } from 'react-router-dom';
+import LocationMap from '../components/Location/LocationMapCom'; // LocationMap 컴포넌트 불러오기
+import Map from '../components/Map/Map'
+import Header from '../components/Header/Header';
 
 const Location = () => {
-    const { setPrediction } = usePrediction(); // context에서 예측 데이터를 저장할 수 있는 함수
+    const { setPrediction } = usePrediction();
     const [isAccordionOpen, setIsAccordionOpen] = useState(false);
     const [destination, setDestination] = useState('');
     const [meridiem, setMeridiem] = useState('AM');
@@ -40,10 +43,7 @@ const Location = () => {
                 }
             });
 
-            // 예측 결과를 context에 저장
             setPrediction(response.data);
-
-            // 예측 페이지로 이동
             navigate('/location/predict');
 
         } catch (error) {
@@ -54,6 +54,7 @@ const Location = () => {
 
     return (
         <div className="App">
+            <Header/>
             <h1>Location Page</h1>
             <form onSubmit={handleSubmit}>
                 <div>
@@ -109,6 +110,10 @@ const Location = () => {
                 </div>
                 <button type="submit">설정</button>
             </form>
+
+            {/* 지도 컴포넌트 삽입 */}
+            <LocationMap />
+
             <Footer toggleAccordion={toggleAccordion} />
             <div className={`accordion ${isAccordionOpen ? 'open' : ''}`}>
                 <div className="accordion-item">

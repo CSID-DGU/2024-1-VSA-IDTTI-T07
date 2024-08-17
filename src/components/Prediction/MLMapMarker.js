@@ -9,6 +9,9 @@ const MLMapMarker = ({ map, positions }) => {
     const { prediction } = usePrediction(); // context에서 예측 데이터를 가져옴
     console.log('예측데이터:', prediction);
 
+    const lat =37.558050422481784;
+    const longi = 127.0009223949609;
+
     useEffect(() => {
         console.log('Positions:', positions);
         console.log('Map:', map);
@@ -28,6 +31,10 @@ const MLMapMarker = ({ map, positions }) => {
                 const overlayContent = document.createElement('div');
                 overlayContent.className = 'info';
                 overlayContent.style.display = 'none';
+
+                //거리 비교하는 함수
+                getDistanceFromLatLonInKm(lat,longi,position.latitude,position.longitude)
+                
 
                 // const result = prediction.predictions.find(item => item.parking_code === position.code);
                 const result = prediction.predictions.find(item => item.parking_code.toString() === position.code);
@@ -71,3 +78,17 @@ const MLMapMarker = ({ map, positions }) => {
 };
 
 export default MLMapMarker;
+
+
+function getDistanceFromLatLonInKm(lat1,lng1,lat2,lng2) {//lat1:위도1, lng1:경도1, lat2:위도2, lat2:경도2
+    function deg2rad(deg) {
+        return deg * (Math.PI/180)
+    }
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2-lat1);  // deg2rad below
+    var dLon = deg2rad(lng2-lng1);
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon/2) * Math.sin(dLon/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c; // Distance in km
+    return d; 
+  }
