@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useLatLng } from '../Location/LatLngContext'; // Context import
 import MLMapMarker from './MLMapMarker';
 import ParkPredictFetcher from './ParkPredictFetcher';
 import '../Map/Map.css';
@@ -9,31 +10,51 @@ const MLMap = () => {
     const { kakao } = window;
     const [map, setMap] = useState(null);
     const [positions, setPositions] = useState([]);
-    const [parkingData, setParkingData] = useState([]); // 주차 데이터 상태 추가
+    const [parkingData, setParkingData] = useState([]);
+    const { latLng } = useLatLng(); // Use context to get latLng
 
     useEffect(() => {
+        if (!latLng) return;
+
         var container = document.getElementById('map');
         var options = {
-            center: new kakao.maps.LatLng(37.5582888178845, 127.00015068054199),
-            level: 3
+            center: new kakao.maps.LatLng(latLng.lat, latLng.lng),
+            level: 4
         };
 
         var map = new kakao.maps.Map(container, options);
         setMap(map);
-    }, []);
+
+        // 마커 생성
+        var marker = new kakao.maps.Marker({
+            position: new kakao.maps.LatLng(latLng.lat, latLng.lng),
+            map: map
+        });
+
+        // 원 생성
+        var circle = new kakao.maps.Circle({
+            center: new kakao.maps.LatLng(latLng.lat, latLng.lng),
+            radius: 500, // 반경 500m
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.2
+        });
+        circle.setMap(map);
+        
+    }, [latLng]);
 
     return (
         <div className="map-container">
             <div id="map"></div>
             <div className="map-info">
-                {/* 주차 정보 리스트 */}
                 <ul>
                     {parkingData.map((item, index) => (
                         <li key={index}>
                             <h3>{item.parkingName}</h3>
                             <p>주소: {item.address}</p>
                             <p>기본 주차 요금(5분): {item.baseParkingFee} 원</p>
-                            {/* <p>최대 일일 요금: {item.maxDailyFee} 원</p> */}
                         </li>
                     ))}
                 </ul>
@@ -44,7 +65,7 @@ const MLMap = () => {
                     <MLMapMarker 
                         map={map} 
                         positions={positions}
-                        setParkingData={setParkingData} // 추가된 속성
+                        setParkingData={setParkingData} 
                     />
                     <ZoomButton map={map} />
                     <MyLocationButton map={map} />

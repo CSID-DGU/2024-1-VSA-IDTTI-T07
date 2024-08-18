@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import MLMapOverlay from './MLMapOverlay';
 import { usePrediction } from '../../context/PredictionContext';
 import SendCodesComponent from './SendCodesComponent';
+import { useLatLng } from '../Location/LatLngContext'; // Context import
 
 const MLMapMarker = ({ map, positions, setParkingData }) => {
     const { kakao } = window;
@@ -10,6 +11,7 @@ const MLMapMarker = ({ map, positions, setParkingData }) => {
     const [distances, setDistances] = useState([]);
     const [filteredCodes, setFilteredCodes] = useState([]);
     const { prediction } = usePrediction();
+    const { latLng } = useLatLng(); 
 
     const lat = 37.57099322116824;
     const longi = 127.00195264614456;
@@ -35,7 +37,7 @@ const MLMapMarker = ({ map, positions, setParkingData }) => {
                 overlayContent.className = 'info';
                 overlayContent.style.display = 'none';
 
-                const distance = getDistanceFromLatLonInKm(lat, longi, position.latlng.Ma, position.latlng.La);
+                const distance = getDistanceFromLatLonInKm(latLng.lat, latLng.lng, position.latlng.Ma, position.latlng.La);
                 newDistances.push({ code: position.code, distance: distance });
 
                 const result = prediction.predictions.find(item => item.parking_code.toString() === position.code);
