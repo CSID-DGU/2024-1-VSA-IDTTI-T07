@@ -11,7 +11,7 @@ const MLMapMarker = ({ map, positions, setParkingData }) => {
     const [distances, setDistances] = useState([]);
     const [filteredCodes, setFilteredCodes] = useState([]);
     const { prediction } = usePrediction();
-    const { latLng } = useLatLng(); 
+    const { latLng } = useLatLng(); // Use context to get latLng
 
     const lat = 37.57099322116824;
     const longi = 127.00195264614456;
