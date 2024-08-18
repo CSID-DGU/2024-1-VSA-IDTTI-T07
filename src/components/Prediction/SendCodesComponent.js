@@ -16,6 +16,7 @@ const SendCodesComponent = ({ codes, onDataFetched }) => {
             onDataFetched(response.data);
         } catch (error) {
             console.error('Error fetching filtered data:', error);
+            onDataFetched([]);
         }
     };
 

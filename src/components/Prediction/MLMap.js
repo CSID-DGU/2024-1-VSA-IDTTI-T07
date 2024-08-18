@@ -24,7 +24,7 @@ const MLMap = () => {
 
         var map = new kakao.maps.Map(container, options);
         setMap(map);
-
+        console.log("데이터 확인용 : " + parkingData)
         // 마커 생성
         var marker = new kakao.maps.Marker({
             position: new kakao.maps.LatLng(latLng.lat, latLng.lng),
@@ -49,15 +49,19 @@ const MLMap = () => {
         <div className="map-container">
             <div id="map"></div>
             <div className="map-info">
-                <ul>
-                    {parkingData.map((item, index) => (
-                        <li key={index}>
-                            <h3>{item.parkingName}</h3>
-                            <p>주소: {item.address}</p>
-                            <p>기본 주차 요금(5분): {item.baseParkingFee} 원</p>
-                        </li>
-                    ))}
-                </ul>
+                {parkingData.length > 0 ? (
+                    <ul>
+                        {parkingData.map((item, index) => (
+                            <li key={index}>
+                                <h3>{item.parkingName}</h3>
+                                <p>주소: {item.address}</p>
+                                <p>기본 주차 요금(5분): {item.baseParkingFee} 원</p>
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <p>주변에 주차장이 없습니다</p>
+                )}
             </div>
             <ParkPredictFetcher setPositions={setPositions} />
             {map && (
