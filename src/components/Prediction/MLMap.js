@@ -58,6 +58,7 @@ const MLMap = () => {
                                     <h3>{item.parkingName}</h3>
                                     <p>주소: {item.address}</p>
                                     <p>기본 주차 요금(5분): {item.baseParkingFee} 원</p>
+                                    <p>거리: {item.distance ? item.distance.toFixed(2) + ' km' : '정보 없음'}</p> {/* 거리 정보 추가 */}
                                 </li>
                             ))}
                         </ul>

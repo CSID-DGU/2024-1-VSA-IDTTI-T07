@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 
-const SendCodesComponent = ({ codes, onDataFetched }) => {
+const SendCodesComponent = ({ codes, onDataFetched, distances }) => {
     useEffect(() => {
         if (codes.length > 0) {
             fetchFilteredData(codes);
@@ -12,11 +12,11 @@ const SendCodesComponent = ({ codes, onDataFetched }) => {
         try {
             const response = await axios.post('http://localhost:8080/api/distance', { codes });
             console.log('Received Data:', response.data);
-            // 받은 데이터를 상위 컴포넌트로 전달
-            onDataFetched(response.data);
+            // 받은 데이터를 distances와 함께 상위 컴포넌트로 전달
+            onDataFetched(response.data, distances);
         } catch (error) {
             console.error('Error fetching filtered data:', error);
-            onDataFetched([]);
+            onDataFetched([], distances);
         }
     };
 

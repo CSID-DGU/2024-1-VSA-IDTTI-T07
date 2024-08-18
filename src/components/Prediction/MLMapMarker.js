@@ -10,6 +10,7 @@ const MLMapMarker = ({ map, positions, setParkingData }) => {
     const { kakao } = window;
     const [activeOverlay, setActiveOverlay] = useState(null);
     const [filteredCodes, setFilteredCodes] = useState([]);
+    const [filteredDistances, setFilteredDistances] = useState([]);
     const { prediction } = usePrediction();
     const { latLng } = useLatLng(); // Use context to get latLng
     const { setDistances } = useDistances(); // Context에서 setDistances 가져오기
@@ -21,28 +22,28 @@ const MLMapMarker = ({ map, positions, setParkingData }) => {
         if (positions.length > 0) {
             const newDistances = [];
             const newParkingData = [];
-    
+
             positions.forEach(position => {
                 const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
                 const imageSize = new kakao.maps.Size(24, 35);
                 const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-    
+
                 const marker = new kakao.maps.Marker({
                     map: map,
                     position: position.latlng,
                     title: position.title,
                     image: markerImage
                 });
-    
+
                 const overlayContent = document.createElement('div');
                 overlayContent.className = 'info';
                 overlayContent.style.display = 'none';
-    
+
                 const distance = getDistanceFromLatLonInKm(latLng.lat, latLng.lng, position.latlng.Ma, position.latlng.La);
                 newDistances.push({ code: position.code, distance: distance });
-    
+
                 const result = prediction.predictions.find(item => item.parking_code.toString() === position.code);
-    
+
                 const overlayComponent = (
                     <MLMapOverlay
                         title={position.title}
@@ -55,16 +56,16 @@ const MLMapMarker = ({ map, positions, setParkingData }) => {
                         }}
                     />
                 );
-    
+
                 ReactDOM.render(overlayComponent, overlayContent);
-    
+
                 const overlay = new kakao.maps.CustomOverlay({
                     content: overlayContent,
                     map: map,
                     position: marker.getPosition(),
                     zIndex: 10
                 });
-    
+
                 kakao.maps.event.addListener(marker, 'click', () => {
                     if (activeOverlay) {
                         activeOverlay.setMap(null);
@@ -73,7 +74,7 @@ const MLMapMarker = ({ map, positions, setParkingData }) => {
                     overlayContent.style.display = 'block';
                     setActiveOverlay(overlay);
                 });
-    
+
                 if (result) {
                     newParkingData.push({
                         parkingName: position.title,
@@ -83,16 +84,19 @@ const MLMapMarker = ({ map, positions, setParkingData }) => {
                     });
                 }
             });
-    
+
             setDistances(newDistances); // Context를 통해 distances 상태 업데이트
-    
+
             const filteredCodes = newDistances.filter(item => item.distance < 0.5).map(item => item.code);
-    
+            const filteredDistances = newDistances.filter(item => item.distance < 0.5).map(item=>item.distance); // 거리 정보 포함
+            console.log("filteredDistances : " + filteredDistances)
             if (filteredCodes.length > 0) {
                 setFilteredCodes(filteredCodes);
+                setFilteredDistances(filteredDistances); // 거리 정보 설정
                 setParkingData(newParkingData); // 주차 데이터 설정
             } else {
                 setFilteredCodes([]);
+                setFilteredDistances([]); // 빈 배열로 설정하여 거리 정보 없음
                 setParkingData([]); // 빈 배열로 설정하여 데이터 없음 표시
             }
         }
@@ -101,9 +105,18 @@ const MLMapMarker = ({ map, positions, setParkingData }) => {
     return (
         <>
             <SendCodesComponent 
-                codes={filteredCodes} 
-                onDataFetched={(data) => setParkingData(data)} // 데이터 전달
+                codes={filteredCodes}
+                distances={filteredDistances}
+                onDataFetched={(data, distances) => {
+                    // distances 정보를 포함하여 parkingData를 설정합니다.
+                    const parkingDataWithDistances = data.map((item, index) => ({
+                        ...item,
+                        distance: distances[index] // distances 배열에서 거리 정보를 추가합니다.
+                    }));
+                    setParkingData(parkingDataWithDistances); // 주차 데이터 설정
+                }}
             />
+            {/* Add another component to handle filteredDistances if needed */}
         </>
     );
 };
