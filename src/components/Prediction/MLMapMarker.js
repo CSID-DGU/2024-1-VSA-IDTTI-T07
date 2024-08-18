@@ -11,6 +11,7 @@ const MLMapMarker = ({ map, positions, setParkingData }) => {
     const [activeOverlay, setActiveOverlay] = useState(null);
     const [filteredCodes, setFilteredCodes] = useState([]);
     const [filteredDistances, setFilteredDistances] = useState([]);
+    const [predictedSpaces, setPredictedSpaces] = useState([]); // 추가된 상태
     const { prediction } = usePrediction();
     const { latLng } = useLatLng(); // Use context to get latLng
     const { setDistances } = useDistances(); // Context에서 setDistances 가져오기
@@ -22,6 +23,7 @@ const MLMapMarker = ({ map, positions, setParkingData }) => {
         if (positions.length > 0) {
             const newDistances = [];
             const newParkingData = [];
+            const newPredictedSpaces = []; // 추가된 배열
 
             positions.forEach(position => {
                 const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
@@ -85,20 +87,37 @@ const MLMapMarker = ({ map, positions, setParkingData }) => {
                 }
             });
 
+
+            
             setDistances(newDistances); // Context를 통해 distances 상태 업데이트
 
             const filteredCodes = newDistances.filter(item => item.distance < 0.5).map(item => item.code);
-            const filteredDistances = newDistances.filter(item => item.distance < 0.5).map(item=>item.distance); // 거리 정보 포함
-            console.log("filteredDistances : " + filteredDistances)
+            const filteredDistances = newDistances.filter(item => item.distance < 0.5).map(item => item.distance); // 거리 정보 포함
+
+            filteredCodes.forEach(element => {
+                const result = prediction.predictions.find(item => item.parking_code.toString() === element);
+            
+                // 예측 주차 공간 정보를 배열에 추가
+                if (result) {
+                    newPredictedSpaces.push(result.predicted_avail_park_space);
+                } else {
+                    newPredictedSpaces.push(null); // 예측 데이터가 없을 경우 null 추가
+                }
+            });
+
+                
             if (filteredCodes.length > 0) {
                 setFilteredCodes(filteredCodes);
                 setFilteredDistances(filteredDistances); // 거리 정보 설정
+                setPredictedSpaces(newPredictedSpaces); // 예측 주차 공간 정보 설정
                 setParkingData(newParkingData); // 주차 데이터 설정
             } else {
                 setFilteredCodes([]);
                 setFilteredDistances([]); // 빈 배열로 설정하여 거리 정보 없음
+                setPredictedSpaces([]); // 빈 배열로 설정하여 예측 주차 공간 정보 없음
                 setParkingData([]); // 빈 배열로 설정하여 데이터 없음 표시
             }
+            console.log("newPredictedSpaces : " + newPredictedSpaces)
         }
     }, [map, positions, activeOverlay, latLng, prediction, setDistances]);
 
@@ -107,13 +126,15 @@ const MLMapMarker = ({ map, positions, setParkingData }) => {
             <SendCodesComponent 
                 codes={filteredCodes}
                 distances={filteredDistances}
-                onDataFetched={(data, distances) => {
-                    // distances 정보를 포함하여 parkingData를 설정합니다.
-                    const parkingDataWithDistances = data.map((item, index) => ({
+                predictedSpaces={predictedSpaces} // 추가된 데이터
+                onDataFetched={(data, distances, predictedSpaces) => {
+                    // distances와 predictedSpaces 정보를 포함하여 parkingData를 설정합니다.
+                    const parkingDataWithDetails = data.map((item, index) => ({
                         ...item,
-                        distance: distances[index] // distances 배열에서 거리 정보를 추가합니다.
+                        distance: distances[index], // distances 배열에서 거리 정보를 추가합니다.
+                        predictedSpace: predictedSpaces[index] // predictedSpaces 배열에서 예측 빈자리 정보를 추가합니다.
                     }));
-                    setParkingData(parkingDataWithDistances); // 주차 데이터 설정
+                    setParkingData(parkingDataWithDetails); // 주차 데이터 설정
                 }}
             />
             {/* Add another component to handle filteredDistances if needed */}
@@ -122,6 +143,8 @@ const MLMapMarker = ({ map, positions, setParkingData }) => {
 };
 
 export default MLMapMarker;
+
+
 
 function getDistanceFromLatLonInKm(lat1, lng1, lat2, lng2) {
     function deg2rad(deg) {

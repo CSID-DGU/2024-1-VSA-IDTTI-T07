@@ -25,14 +25,13 @@ const MLMap = () => {
 
         var map = new kakao.maps.Map(container, options);
         setMap(map);
-        console.log("데이터 확인용 : " + parkingData)
-        // 마커 생성
+
+        // 마커 및 원 생성
         var marker = new kakao.maps.Marker({
             position: new kakao.maps.LatLng(latLng.lat, latLng.lng),
             map: map
         });
 
-        // 원 생성
         var circle = new kakao.maps.Circle({
             center: new kakao.maps.LatLng(latLng.lat, latLng.lng),
             radius: 500, // 반경 500m
@@ -58,7 +57,8 @@ const MLMap = () => {
                                     <h3>{item.parkingName}</h3>
                                     <p>주소: {item.address}</p>
                                     <p>기본 주차 요금(5분): {item.baseParkingFee} 원</p>
-                                    <p>거리: {item.distance ? item.distance.toFixed(2) + ' km' : '정보 없음'}</p> {/* 거리 정보 추가 */}
+                                    <p>거리: {item.distance ? item.distance.toFixed(2) + ' km' : '정보 없음'}</p>
+                                    <p>예측 빈자리: {item.predictedSpace !== null ? item.predictedSpace : '정보 없음'}</p> {/* 예측 빈자리 정보 추가 */}
                                 </li>
                             ))}
                         </ul>
