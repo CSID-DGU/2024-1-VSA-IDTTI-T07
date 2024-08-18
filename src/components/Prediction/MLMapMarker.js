@@ -4,14 +4,15 @@ import MLMapOverlay from './MLMapOverlay';
 import { usePrediction } from '../../context/PredictionContext';
 import SendCodesComponent from './SendCodesComponent';
 import { useLatLng } from '../Location/LatLngContext'; // Context import
+import { useDistances } from './DistanceContext'; // Context import
 
 const MLMapMarker = ({ map, positions, setParkingData }) => {
     const { kakao } = window;
     const [activeOverlay, setActiveOverlay] = useState(null);
-    const [distances, setDistances] = useState([]);
     const [filteredCodes, setFilteredCodes] = useState([]);
     const { prediction } = usePrediction();
     const { latLng } = useLatLng(); // Use context to get latLng
+    const { setDistances } = useDistances(); // Context에서 setDistances 가져오기
 
     const lat = 37.57099322116824;
     const longi = 127.00195264614456;
@@ -83,7 +84,7 @@ const MLMapMarker = ({ map, positions, setParkingData }) => {
                 }
             });
     
-            setDistances(newDistances);
+            setDistances(newDistances); // Context를 통해 distances 상태 업데이트
     
             const filteredCodes = newDistances.filter(item => item.distance < 0.5).map(item => item.code);
     
@@ -95,8 +96,7 @@ const MLMapMarker = ({ map, positions, setParkingData }) => {
                 setParkingData([]); // 빈 배열로 설정하여 데이터 없음 표시
             }
         }
-    }, [map, positions, activeOverlay, latLng, prediction]);
-    
+    }, [map, positions, activeOverlay, latLng, prediction, setDistances]);
 
     return (
         <>

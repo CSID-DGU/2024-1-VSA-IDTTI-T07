@@ -5,6 +5,7 @@ import ParkPredictFetcher from './ParkPredictFetcher';
 import '../Map/Map.css';
 import ZoomButton from '../Button/ZoomButton';
 import MyLocationButton from '../Button/MyLocationButton';
+import { DistanceProvider } from './DistanceContext'; // Context import
 
 const MLMap = () => {
     const { kakao } = window;
@@ -46,36 +47,38 @@ const MLMap = () => {
     }, [latLng]);
 
     return (
-        <div className="map-container">
-            <div id="map"></div>
-            <div className="map-info">
-                {parkingData.length > 0 ? (
-                    <ul>
-                        {parkingData.map((item, index) => (
-                            <li key={index}>
-                                <h3>{item.parkingName}</h3>
-                                <p>주소: {item.address}</p>
-                                <p>기본 주차 요금(5분): {item.baseParkingFee} 원</p>
-                            </li>
-                        ))}
-                    </ul>
-                ) : (
-                    <p>주변에 주차장이 없습니다</p>
+        <DistanceProvider>
+            <div className="map-container">
+                <div id="map"></div>
+                <div className="map-info">
+                    {parkingData.length > 0 ? (
+                        <ul>
+                            {parkingData.map((item, index) => (
+                                <li key={index}>
+                                    <h3>{item.parkingName}</h3>
+                                    <p>주소: {item.address}</p>
+                                    <p>기본 주차 요금(5분): {item.baseParkingFee} 원</p>
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <p>주변에 주차장이 없습니다</p>
+                    )}
+                </div>
+                <ParkPredictFetcher setPositions={setPositions} />
+                {map && (
+                    <>
+                        <MLMapMarker 
+                            map={map} 
+                            positions={positions}
+                            setParkingData={setParkingData} 
+                        />
+                        <ZoomButton map={map} />
+                        <MyLocationButton map={map} />
+                    </>
                 )}
             </div>
-            <ParkPredictFetcher setPositions={setPositions} />
-            {map && (
-                <>
-                    <MLMapMarker 
-                        map={map} 
-                        positions={positions}
-                        setParkingData={setParkingData} 
-                    />
-                    <ZoomButton map={map} />
-                    <MyLocationButton map={map} />
-                </>
-            )}
-        </div>
+        </DistanceProvider>
     );
 };
 
