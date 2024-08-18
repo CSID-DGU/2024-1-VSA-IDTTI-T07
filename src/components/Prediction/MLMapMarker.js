@@ -2,21 +2,22 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import MLMapOverlay from './MLMapOverlay';
 import { usePrediction } from '../../context/PredictionContext';
-import SendCodesComponent from './SendCodesComponent'; // 새 컴포넌트 import
+import SendCodesComponent from './SendCodesComponent';
 
-const MLMapMarker = ({ map, positions }) => {
+const MLMapMarker = ({ map, positions, setParkingData }) => {
     const { kakao } = window;
     const [activeOverlay, setActiveOverlay] = useState(null);
     const [distances, setDistances] = useState([]);
-    const [filteredCodes, setFilteredCodes] = useState([]); // 필터링된 코드를 저장할 상태
+    const [filteredCodes, setFilteredCodes] = useState([]);
     const { prediction } = usePrediction();
 
-    const lat = 37.558050422481784;
-    const longi = 127.0009223949609;
+    const lat = 37.57099322116824;
+    const longi = 127.00195264614456;
 
     useEffect(() => {
         if (positions.length > 0) {
             const newDistances = [];
+            const newParkingData = [];
 
             positions.forEach(position => {
                 const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
@@ -69,23 +70,29 @@ const MLMapMarker = ({ map, positions }) => {
                     overlayContent.style.display = 'block';
                     setActiveOverlay(overlay);
                 });
+
+                if (result) {
+                    newParkingData.push({
+                        parkingName: position.title,
+                        address: position.address,
+                        baseParkingFee: result.baseParkingFee,
+                        maxDailyFee: result.maxDailyFee
+                    });
+                }
             });
 
             setDistances(newDistances);
-
-            // 거리가 1보다 작은 코드만 필터링
-            const codes = newDistances
-                .filter(item => item.distance < 1)
-                .map(item => item.code);
-
-            setFilteredCodes(codes);
-            
+            setFilteredCodes(newDistances.filter(item => item.distance < 0.5).map(item => item.code));
+            setParkingData(newParkingData); // 주차 데이터 설정
         }
     }, [map, positions, activeOverlay]);
 
     return (
         <>
-            <SendCodesComponent codes={filteredCodes} />
+            <SendCodesComponent 
+                codes={filteredCodes} 
+                onDataFetched={(data) => setParkingData(data)} // 데이터 전달
+            />
         </>
     );
 };

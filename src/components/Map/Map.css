@@ -282,3 +282,27 @@
 .favorite-button:hover {
     color: darkred; /* 호버 시 글자 색상을 변경하여 시각적 피드백 제공 */
 }
+.map-container {
+    display: flex;
+}
+
+#map {
+    width: 75%;
+    height: 100vh;
+}
+
+.map-info {
+    width: 25%;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.map-info ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.map-info li {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
