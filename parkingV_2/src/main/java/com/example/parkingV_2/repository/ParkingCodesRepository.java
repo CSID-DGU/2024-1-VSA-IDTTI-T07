@@ -21,4 +21,5 @@ public interface ParkingCodesRepository extends JpaRepository<ParkingCodes, Stri
     void updateParkingSpaces(String code, int availParkSpace, int totalSpace);
 
     ParkingCodes findByCode(String code);
+
 }

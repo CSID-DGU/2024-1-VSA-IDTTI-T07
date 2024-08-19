@@ -17,21 +17,21 @@ public class ScheduledTasks {
     public void fetchAndSaveParkingDataPeriodically() {
         try {
             startupRunner.run();
-            publicAPI.fetchAndSaveParkingData("1", "498");
-            publicAPI.fetchAndSaveParkingData("499", "504");
-            publicAPI.fetchAndSaveParkingData("505", "614");
-            publicAPI.fetchAndSaveParkingData("615", "626");
-            publicAPI.fetchAndSaveParkingData("627", "763");
-            publicAPI.fetchAndSaveParkingData("764", "800");
-            publicAPI.fetchAndSaveParkingData("801", "942");
-            publicAPI.fetchAndSaveParkingData("943", "962");
-            publicAPI.fetchAndSaveParkingData("963", "969");
-            publicAPI.fetchAndSaveParkingData("970", "975");
-            publicAPI.fetchAndSaveParkingData("976", "1011");
-            publicAPI.fetchAndSaveParkingData("1012", "1348");
-            publicAPI.fetchAndSaveParkingData("1349", "1589");
-            publicAPI.fetchAndSaveParkingData("1590", "1899");
-            publicAPI.fetchAndSaveParkingData("1900", "2000");
+//            publicAPI.fetchAndSaveParkingData("1", "498");
+//            publicAPI.fetchAndSaveParkingData("499", "504");
+//            publicAPI.fetchAndSaveParkingData("505", "614");
+//            publicAPI.fetchAndSaveParkingData("615", "626");
+//            publicAPI.fetchAndSaveParkingData("627", "763");
+//            publicAPI.fetchAndSaveParkingData("764", "800");
+//            publicAPI.fetchAndSaveParkingData("801", "942");
+//            publicAPI.fetchAndSaveParkingData("943", "962");
+//            publicAPI.fetchAndSaveParkingData("963", "969");
+//            publicAPI.fetchAndSaveParkingData("970", "975");
+//            publicAPI.fetchAndSaveParkingData("976", "1011");
+//            publicAPI.fetchAndSaveParkingData("1012", "1348");
+//            publicAPI.fetchAndSaveParkingData("1349", "1589");
+//            publicAPI.fetchAndSaveParkingData("1590", "1899");
+//            publicAPI.fetchAndSaveParkingData("1900", "2000");
         } catch (Exception e) {
             e.printStackTrace();
         }
