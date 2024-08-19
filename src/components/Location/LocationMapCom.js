@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useSearch } from '../Map/SearchContext';
 import { useLatLng } from './LatLngContext'; // Context import
 import './LocationMap.css';
+// import '../Map/Map.css';
 import ZoomButton from '../Button/ZoomButton';
 import MyLocationButton from '../Button/MyLocationButton';
 
@@ -56,8 +57,8 @@ const LocationMapCom = () => {
     }, [searchQuery, map]);
 
     return (
-        <div>
-            <div id="map" ></div>
+        <div id="map" className="map-container">
+            
             <div id="clickLatlng"></div>
             {map && (
                 <>

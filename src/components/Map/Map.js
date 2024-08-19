@@ -45,7 +45,7 @@ const Map = () => {
     }, [searchQuery, map]);
 
     return (
-        <div id="map">
+        <div id="map" className="map-container">
             <ParkingDataFetcher setPositions={setPositions} />
             {map && (
                 <>

@@ -55,7 +55,8 @@ const Location = () => {
     return (
         <div className="App">
             <Header/>
-            <div className="location-container">
+                {/* 지도 컴포넌트 삽입 */}
+                <div className="location-map">          
                 <form className="location-form" onSubmit={handleSubmit}>
                     <div>
                         <label>도착 시간:</label>
@@ -101,13 +102,8 @@ const Location = () => {
                     </div>
                     <button type="submit">설정</button>
                 </form>
-
-                {/* 지도 컴포넌트 삽입 */}
-                <div className="location-map">
                     <LocationMap />
                 </div>
-            </div>
-
             <Footer toggleAccordion={toggleAccordion} />
             <div className={`accordion ${isAccordionOpen ? 'open' : ''}`}>
                 <div className="accordion-item">

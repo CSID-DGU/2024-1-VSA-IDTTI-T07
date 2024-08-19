@@ -1,25 +1,25 @@
 .header {
     background-color: #f8f9fa;
-    padding: 20px;
+    padding: 10px;
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap; /* 요소가 줄바꿈 되지 않도록 설정 */
 }
 
 .header h1 {
     margin: 0;
     text-align: center;
-    flex: 1; /* 남은 공간을 차지하도록 설정 */
+    flex: 1;
 }
 
 .search-button {
     background: none;
     border: none;
     cursor: pointer;
-    margin-left: auto; /* 오른쪽으로 정렬 */
+    margin-left: auto;
 }
 
 .search-button img {
@@ -27,82 +27,34 @@
     height: 28px;
 }
 
-/* 미디어 쿼리 추가 */
 @media (max-width: 768px) {
     .header {
         padding: 10px;
     }
 
     .header h1 {
-        font-size: 18px; /* 화면이 작아졌을 때 글자 크기 조정 */
+        font-size: 18px;
     }
 
     .search-button img {
         width: 23px;
-        height: 23px; /* 화면이 작아졌을 때 아이콘 크기 조정 */
+        height: 23px;
     }
 }
 
 @media (max-width: 480px) {
     .header {
-        /* flex-direction: column; 작은 화면에서는 요소를 세로로 나열 */
         align-items: center;
     }
 
     .header h1 {
-        font-size: 28px; /* 더 작은 화면에서는 글자 크기 더 조정 */
-        margin-bottom: 5px; /* 아래에 약간의 여백 추가 */
+        font-size: 28px;
+        margin-bottom: 5px;
         text-align: left;
         margin-left: 10px;
     }
 
     .search-button {
-        margin-left: 0; /* 오른쪽 여백 제거 */
+        margin-left: 0;
     }
-}
-
-/* 추가된 CSS */
-.search-panel {
-    position: absolute;
-    top: 80px; /* 헤더 바로 아래에 위치 */
-    right: 100;
-    width: 300px;
-    height: calc(100% - 150px); /* 헤더를 제외한 전체 높이 */
-    background-color: white;
-    box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
-    z-index: 1000;
-    padding: 20px;
-}
-
-.search-panel form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.search-panel input {
-    padding: 10px;
-    font-size: 16px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 100%;
-}
-
-.search-panel button {
-    padding: 10px;
-    font-size: 16px;
-    background-color: #333;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-}
-
-.search-results {
-    background-color: white;
-    color: black;
-    width: 50%;
 }
