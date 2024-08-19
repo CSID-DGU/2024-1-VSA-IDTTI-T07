@@ -24,28 +24,31 @@ const MLMapMarker = ({ map, positions, setParkingData }) => {
             const newDistances = [];
             const newParkingData = [];
             const newPredictedSpaces = []; // 추가된 배열
-
+    
             positions.forEach(position => {
                 const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
                 const imageSize = new kakao.maps.Size(24, 35);
                 const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-
+    
                 const marker = new kakao.maps.Marker({
                     map: map,
                     position: position.latlng,
                     title: position.title,
                     image: markerImage
                 });
-
+    
                 const overlayContent = document.createElement('div');
                 overlayContent.className = 'info';
                 overlayContent.style.display = 'none';
-
+    
                 const distance = getDistanceFromLatLonInKm(latLng.lat, latLng.lng, position.latlng.Ma, position.latlng.La);
                 newDistances.push({ code: position.code, distance: distance });
-
-                const result = prediction.predictions.find(item => item.parking_code.toString() === position.code);
-
+    
+                // `prediction`과 `prediction.predictions`가 정의되어 있는지 확인
+                const result = prediction && prediction.predictions 
+                    ? prediction.predictions.find(item => item.parking_code.toString() === position.code)
+                    : null;
+    
                 const overlayComponent = (
                     <MLMapOverlay
                         title={position.title}
@@ -58,16 +61,16 @@ const MLMapMarker = ({ map, positions, setParkingData }) => {
                         }}
                     />
                 );
-
+    
                 ReactDOM.render(overlayComponent, overlayContent);
-
+    
                 const overlay = new kakao.maps.CustomOverlay({
                     content: overlayContent,
                     map: map,
                     position: marker.getPosition(),
                     zIndex: 10
                 });
-
+    
                 kakao.maps.event.addListener(marker, 'click', () => {
                     if (activeOverlay) {
                         activeOverlay.setMap(null);
@@ -76,7 +79,7 @@ const MLMapMarker = ({ map, positions, setParkingData }) => {
                     overlayContent.style.display = 'block';
                     setActiveOverlay(overlay);
                 });
-
+    
                 if (result) {
                     newParkingData.push({
                         parkingName: position.title,
@@ -86,40 +89,39 @@ const MLMapMarker = ({ map, positions, setParkingData }) => {
                     });
                 }
             });
-
-
-            
-            setDistances(newDistances); // Context를 통해 distances 상태 업데이트
-
+    
+            setDistances(newDistances);
+    
             const filteredCodes = newDistances.filter(item => item.distance < 0.5).map(item => item.code);
-            const filteredDistances = newDistances.filter(item => item.distance < 0.5).map(item => item.distance); // 거리 정보 포함
-
+            const filteredDistances = newDistances.filter(item => item.distance < 0.5).map(item => item.distance); 
+    
             filteredCodes.forEach(element => {
-                const result = prediction.predictions.find(item => item.parking_code.toString() === element);
-            
-                // 예측 주차 공간 정보를 배열에 추가
+                const result = prediction && prediction.predictions 
+                    ? prediction.predictions.find(item => item.parking_code.toString() === element)
+                    : null;
+    
                 if (result) {
                     newPredictedSpaces.push(result.predicted_avail_park_space);
                 } else {
-                    newPredictedSpaces.push(null); // 예측 데이터가 없을 경우 null 추가
+                    newPredictedSpaces.push(null);
                 }
             });
-
-                
+    
             if (filteredCodes.length > 0) {
                 setFilteredCodes(filteredCodes);
-                setFilteredDistances(filteredDistances); // 거리 정보 설정
-                setPredictedSpaces(newPredictedSpaces); // 예측 주차 공간 정보 설정
-                setParkingData(newParkingData); // 주차 데이터 설정
+                setFilteredDistances(filteredDistances); 
+                setPredictedSpaces(newPredictedSpaces); 
+                setParkingData(newParkingData); 
             } else {
                 setFilteredCodes([]);
-                setFilteredDistances([]); // 빈 배열로 설정하여 거리 정보 없음
-                setPredictedSpaces([]); // 빈 배열로 설정하여 예측 주차 공간 정보 없음
-                setParkingData([]); // 빈 배열로 설정하여 데이터 없음 표시
+                setFilteredDistances([]); 
+                setPredictedSpaces([]); 
+                setParkingData([]);
             }
             console.log("newPredictedSpaces : " + newPredictedSpaces)
         }
     }, [map, positions, activeOverlay, latLng, prediction, setDistances]);
+    
 
     return (
         <>
