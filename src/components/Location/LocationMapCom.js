@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSearch } from '../Map/SearchContext';
 import { useLatLng } from './LatLngContext'; // Context import
-import './LocationMap.css';
+import '../Map/Map.css';
 // import '../Map/Map.css';
 import ZoomButton from '../Button/ZoomButton';
 import MyLocationButton from '../Button/MyLocationButton';

@@ -1,110 +1,107 @@
-/* Map.css */
+/* LocationMap.css */
 #map {
-    width: 100%;
-    height: 100%; /* 부모의 높이에 맞게 설정 */
+    width: 100%; /* 지도의 너비를 80%로 설정하여 화면 크기에 맞게 조정 */
+    height: 83vh; 
+    margin: auto;
+    margin-top: 0px; /* 헤더와 지도의 사이 여백을 설정 */
+    border-radius: 10px; /* 지도의 모서리를 둥글게 설정 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
 }
-
-.map-container {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    overflow: hidden; /* 자식 요소가 넘치지 않도록 설정 */
-}
-
-.map-info {
-    width: 25%;
-    padding: 10px;
-    overflow-y: auto;
-}
-
-
 
 .wrap {
     position: absolute;
-    left: 0;
+    left: 50%;
     bottom: 40px;
-    width: 288px;
-    height: 132px;
-    margin-left: -144px;
-    text-align: left;
+    width: 300px;
+    transform: translateX(-50%); /* 가로 방향으로 중앙 정렬 */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    font-size: 12px;
-    font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
-    line-height: 1.5;
-}
-
-.wrap * {
-    width: 286px;
-    height: 120px;
-    padding: 0;
-    margin: 0;
 }
 
 .wrap .info {
-    width: 286px;
-    height: 120px;
-    border-radius: 5px;
+    padding: 15px;
     border-bottom: 2px solid #ccc;
-    border-right: 1px solid #ccc;
-    overflow: hidden;
-    background: #fff;
 }
 
-
 .info .title {
-    padding: 5px 0 0 10px;
-    height: 30px;
-    background: #eee;
-    border-bottom: 1px solid #ddd;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
+    color: #333;
     text-align: center; /* 텍스트 가운데 정렬 */
-    position: relative; /* .close 요소의 위치 설정을 위해 상대 위치로 변경 */
+    background-color: #f8f9fa; /* 연한 배경색 추가 */
+    padding: 10px;
+    border-radius: 5px;
+    position: relative;
 }
 
 .info .close {
     position: absolute;
     top: 10px;
     right: 10px;
-    color: #888;
-    width: 17px;
-    height: 17px;
+    width: 20px;
+    height: 20px;
     background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
+    cursor: pointer; /* 커서가 포인터로 변경 */
+}
+
+.info .close:hover {
+    opacity: 0.7; /* 마우스 오버 시 투명도 변경 */
+}
+
+.info .desc {
+    font-size: 14px;
+    color: #555;
+    margin-top: 10px;
+    line-height: 1.6;
 }
 
 .info:after {
     content: '';
     position: absolute;
-    margin-left: -12px;
     left: 50%;
-    bottom: 0;
+    bottom: -10px;
+    transform: translateX(-50%);
     width: 22px;
     height: 12px;
     background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png');
 }
 
-.info .link {
-    color: #5085BB;
-}
-
 /* 미디어 쿼리 추가 */
 @media (max-width: 768px) {
     #map {
-        width: 100%;
-        height: 80vh; /* 뷰포트 높이의 60%로 조정 */
-        margin-top: 3px; /* 여백을 더 줄임 */
+        width: 90%;
+        height: 80vh; 
+        margin-top: 10px; 
     }
 
     .wrap {
         bottom: 20px;
-        width: 80%;
-        height: auto;
-        margin-left: 0;
+        width: 90%;
+        left: 50%;
+        transform: translateX(-50%);
     }
 
-    .wrap .info {
+    .info .title {
+        font-size: 18px;
+    }
+
+    .info .desc {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    #map {
         width: 100%;
-        height: auto;
+        height: 75vh; 
+        margin-top: 10px;
+    }
+
+    .wrap {
+        bottom: 15px;
+        width: 95%;
     }
 
     .info .title {
@@ -112,156 +109,125 @@
     }
 
     .info .desc {
-        margin: 10px 0 0 80px;
-    }
-
-    .info .img {
-        width: 60px;
-        height: 60px;
+        font-size: 12px;
     }
 }
 
-@media (max-width: 480px) {
-    #map {
-        height: 82vh; 
-        margin-top: 3px; /* 여백을 더 줄임 */
-    }
-
-    .wrap {
-        bottom: 10px;
-        width: 100%;
-        height: auto;
-    }
-
-    .wrap .info {
-        width: 100%;
-        height: auto;
-    }
-
-    .info .title {
-        font-size: 14px;
-    }
-
-    .info .desc {
-        margin: 5px 0 0 70px;
-    }
-
-    .info .img {
-        width: 50px;
-        height: 50px;
-    }
-}
+/* 컨테이너 스타일 */
 .container {
-    background-color: #e2e8f0; /* bg-gray-300 */
+    background-color: #e2e8f0; /* 연한 회색 배경 */
     padding: 16px;
-  }
-  
-  .inner-container {
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+}
+
+.inner-container {
     margin: 0 auto;
-    max-width: 270px; /* max-w-3xl */
-    background-color: #bfdbfe; /* bg-blue-200 */
+    max-width: 300px;
+    background-color: #bfdbfe; /* 연한 파란색 배경 */
     padding: 16px;
-  }
-  
-  .content {
-    height: 280px;
+    border-radius: 10px;
+}
+
+.content {
+    height: 300px;
     overflow: auto;
-    background-color: #ffffff; /* bg-white */
+    background-color: #ffffff;
     padding: 20px;
-  }
-  
-  .text-center {
+    border-radius: 8px;
+}
+
+.text-center {
     text-align: center;
-  }
-  
-  .title {
-    font-size: 1.25rem; /* text-xl */
+}
+
+.title {
+    font-size: 1.5rem; /* 큰 제목 글꼴 크기 */
     font-weight: bold;
-    color: #facc15; /* text-yellow-500 */
-  }
-  
-  .address {
+    color: #facc15; /* 노란색 글자 */
+}
+
+.address {
     margin-top: 8px;
-    color: #6b7280; /* text-gray-500 */
-  }
-  
-  .divider {
+    color: #6b7280; /* 중간 회색 글자 */
+}
+
+.divider {
     margin: 16px 0;
-    border-top: 2px solid #d1d5db; /* border-t-2 border-gray-300 */
-  }
-  
-  .parking-info-header {
+    border-top: 2px solid #d1d5db;
+}
+
+.parking-info-header {
     display: flex;
     justify-content: center;
-    gap: 28px; /* 행과 열 모두 16px 간격 */
-  }
-  
-  .header-item {
+    gap: 20px;
+}
+
+.header-item {
     height: 32px;
-    width: 100%;
     text-align: center;
     font-weight: bold;
-  }
-  
-  .parking-info {
+    flex: 1;
+}
+
+.parking-info {
     display: flex;
     justify-content: center;
-    gap: 32px;
-  }
-  
-  .parking-spot {
+    gap: 20px;
+}
+
+.parking-spot {
     height: 40px;
     width: 80px;
     border-radius: 8px;
-    border: 2px solid #fcd34d; /* border-yellow-300 */
-    background-color: #ffffff; /* bg-white */
+    border: 2px solid #fcd34d; /* 노란색 테두리 */
+    background-color: #ffffff;
     text-align: center;
     font-size: 25px;
-  }
-  
-  .details {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.details {
     margin-top: 20px;
-  }
-  
-  .detail-item {
+}
+
+.detail-item {
     margin: 12px 0;
     text-align: center;
-  }
-  
-  .detail-title {
-    padding-left: 8px;
-    font-weight: bold;
-    color: #60a5fa; /* text-blue-400 */
-  }
-  
-  .favorite-button {
-    display: block; /* 버튼을 블록 요소로 변환하여 가운데 정렬을 용이하게 함 */
-    margin: 0 auto; /* 좌우 여백을 자동으로 설정하여 가운데 정렬 */
-    padding: 10px 20px; /* 버튼의 패딩을 설정하여 더 클릭하기 쉽게 함 */
-    border: none; /* 기본 테두리 제거 */
-    background-color: transparent; /* 배경색을 투명하게 설정 */
-    color: gray; /* 기본 글자 색상 설정 */
-    font-size: 16px; /* 글자 크기 설정 */
-    font-weight: bold; /* 글자 두께를 굵게 설정 */
-    cursor: pointer; /* 마우스 커서를 포인터로 변경하여 클릭 가능성을 나타냄 */
-    text-align: center; /* 텍스트를 중앙 정렬 */
-    border-radius: 5px; /* 버튼의 모서리를 둥글게 설정 */
-    transition: color 0.3s; /* 색상 변경에 부드러운 전환 효과 추가 */
 }
 
-/* 버튼을 클릭할 때 색상 변경을 위한 호버 효과 */
+.detail-title {
+    font-weight: bold;
+    color: #60a5fa; /* 파란색 글자 */
+}
+
+.favorite-button {
+    display: block;
+    margin: 20px auto 0 auto;
+    padding: 10px 20px;
+    background-color: transparent;
+    color: gray;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: color 0.3s;
+    border: 2px solid #fcd34d; /* 노란색 테두리 추가 */
+    cursor: pointer;
+    text-align: center;
+}
+
 .favorite-button:hover {
-    color: darkred; /* 호버 시 글자 색상을 변경하여 시각적 피드백 제공 */
+    color: darkred;
+    background-color: #fcd34d; /* 노란색 배경 추가 */
+    border-color: darkred; /* 테두리 색상 변경 */
 }
-.map-container {
-    display: flex;
-}
+
+
 
 /* MLMap 관련 css */
-#map {
-    width: 75%;
-    height: 100vh;
-}
+
 
 /* .map-info 기본 스타일 */
 .map-info {
