@@ -1,4 +1,3 @@
-// Header.js
 import React from 'react';
 import { useSearch } from '../Map/SearchContext';
 import './Header.css';
@@ -21,32 +20,31 @@ const Header = () => {
         e.preventDefault();
         if (searchQuery.trim() === '') return;
         setGlobalSearchQuery(searchQuery);
-        // 추가로 검색 처리를 여기에서 할 수 있습니다.
         setIsSearchOpen(false); // 검색 완료 후 검색창 닫기
     };
 
     return (
-        <>
-            <header className="header">
-                <h1>IDTTI</h1>
+        <header className="header">
+            <h1>IDTTI</h1>
+            <div className="search-container">
                 <button className="search-button" onClick={toggleSearch}>
                     <img src={searchIcon} alt="Search" />
                 </button>
-            </header>
-            {isSearchOpen && (
-                <div className="search-panel">
-                    <form onSubmit={handleSearchSubmit}>
-                        <input
-                            type="text"
-                            value={searchQuery}
-                            onChange={handleSearchChange}
-                            placeholder="Search..."
-                        />
-                        <button type="submit">검색</button>
-                    </form>
-                </div>
-            )}
-        </>
+                {isSearchOpen && (
+                    <div className="search-panel">
+                        <form onSubmit={handleSearchSubmit}>
+                            <input
+                                type="text"
+                                value={searchQuery}
+                                onChange={handleSearchChange}
+                                placeholder="Search..."
+                            />
+                            <button type="submit">검색</button>
+                        </form>
+                    </div>
+                )}
+            </div>
+        </header>
     );
 };
 

@@ -15,6 +15,12 @@
     flex: 1;
 }
 
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
 .search-button {
     background: none;
     border: none;
@@ -25,6 +31,42 @@
 .search-button img {
     width: 28px;
     height: 28px;
+}
+
+.search-panel {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 4px;
+    z-index: 1000; /* 검색창이 다른 요소 위에 표시되도록 설정 */
+}
+
+.search-panel form {
+    display: flex;
+    align-items: center;
+}
+
+.search-panel input {
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin-right: 5px;
+    border-radius: 4px;
+}
+
+.search-panel button {
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.search-panel button:hover {
+    background-color: #0056b3;
 }
 
 @media (max-width: 768px) {
