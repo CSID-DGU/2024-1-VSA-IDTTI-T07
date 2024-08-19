@@ -22,4 +22,7 @@ public class UserEntity {
     private String nickname;
     private String role;
 
+    public UserEntity(String email) {
+        this.email = email;
+    }
 }
