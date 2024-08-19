@@ -1,0 +1,50 @@
+/* src/components/Spinner/Spinner.css */
+.spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.spinner {
+    border: 8px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+.spinner-text {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.spinner-text p {
+    margin: 0;
+    font-size: 30px; /* 글자 크기 */
+    color: #333; /* 글자 색상 */
+    font-weight: bold; /* 글자 두께 */
+}
+
+.spinner-text p:first-child {
+    font-size: 40px; /* 첫 번째 메시지의 글자 크기 */
+    color: #e74c3c; /* 첫 번째 메시지의 색상 */
+}
+
+.spinner-text p:last-child {
+    font-size: 30px; /* 두 번째 메시지의 글자 크기 */
+    color: #3498db; /* 두 번째 메시지의 색상 */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

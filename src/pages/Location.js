@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-// import '../App.css';
 import Footer from '../components/Footer/Footer';
 import Frequent from '../components/Footer/Frequent';
 import { usePrediction } from '../context/PredictionContext';
 import { useNavigate } from 'react-router-dom';
-import LocationMap from '../components/Location/LocationMapCom'; // LocationMap 컴포넌트 불러오기
+import LocationMap from '../components/Location/LocationMapCom';
 import Header from '../components/Header/Header';
-import './Location.css'; // 새로 만든 CSS 파일 불러오기
+import './Location.css';
+import Spinner from '../components/Spinner/Spinner'; // 스피너 컴포넌트 불러오기
 
 const Location = () => {
     const { setPrediction } = usePrediction();
     const [isAccordionOpen, setIsAccordionOpen] = useState(false);
-    const [destination, setDestination] = useState('');
     const [meridiem, setMeridiem] = useState('AM');
     const [hour, setHour] = useState('');
     const [minute, setMinute] = useState('');
     const [weekday, setWeekday] = useState('Sunday');
+    const [loading, setLoading] = useState(false); // 로딩 상태 추가
 
     const navigate = useNavigate();
 
@@ -26,6 +26,7 @@ const Location = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setLoading(true); // 로딩 시작
 
         let adjustedHour = parseInt(hour, 10);
         if (meridiem === 'PM' && adjustedHour !== 12) {
@@ -49,14 +50,15 @@ const Location = () => {
         } catch (error) {
             console.error('예측 요청 중 오류가 발생했습니다:', error);
             alert('예측 요청 중 오류가 발생했습니다.');
+        } finally {
+            setLoading(false); // 로딩 종료
         }
     };
 
     return (
         <div className="App">
-            <Header/>
-                {/* 지도 컴포넌트 삽입 */}
-                <div className="location-map">          
+            <Header />
+            <div className="location-map">
                 <form className="location-form" onSubmit={handleSubmit}>
                     <div>
                         <label>도착 시간:</label>
@@ -102,8 +104,8 @@ const Location = () => {
                     </div>
                     <button type="submit">설정</button>
                 </form>
-                    <LocationMap />
-                </div>
+                <LocationMap />
+            </div>
             <Footer toggleAccordion={toggleAccordion} />
             <div className={`accordion ${isAccordionOpen ? 'open' : ''}`}>
                 <div className="accordion-item">
@@ -112,6 +114,7 @@ const Location = () => {
                     </div>
                 </div>
             </div>
+            {loading && <Spinner />} {/* 로딩 중 스피너 표시 */}
         </div>
     );
 };

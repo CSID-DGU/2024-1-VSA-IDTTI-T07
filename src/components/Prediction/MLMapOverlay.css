@@ -1,0 +1,107 @@
+/* MLMapOverlay 컨테이너 스타일 */
+.overlay-container {
+    background-color: #e2e8f0; /* 연한 회색 배경 */
+    padding: 16px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+}
+
+.overlay-inner-container {
+    margin: 0 auto;
+    max-width: 300px;
+    background-color: #bfdbfe; /* 연한 파란색 배경 */
+    padding: 16px;
+    border-radius: 10px;
+}
+
+.overlay-content {
+    height: 300px;
+    overflow: auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.overlay-text-center {
+    text-align: center;
+}
+
+.overlay-title {
+    font-size: 1.5rem; /* 큰 제목 글꼴 크기 */
+    font-weight: bold;
+    color: #0b0900; /* 제목 색상 */
+    display: flex; /* 버튼과 제목을 한 줄에 배치 */
+    align-items: center; /* 제목과 버튼을 수직으로 가운데 정렬 */
+    gap: 8px; /* 제목과 버튼 사이의 간격 */
+}
+
+.overlay-address {
+    margin-top: 8px;
+    color: #6b7280; /* 중간 회색 글자 */
+}
+
+.overlay-divider {
+    margin: 16px 0;
+    border-top: 2px solid #d1d5db;
+}
+
+.overlay-parking-info-header {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.overlay-header-item {
+    height: 32px;
+    text-align: center;
+    font-weight: bold;
+    flex: 1;
+}
+
+.overlay-parking-info {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.overlay-parking-spot {
+    height: 40px;
+    width: 80px;
+    border-radius: 8px;
+    border: 2px solid #130e00; /* 노란색 테두리 */
+    background-color: #ffffff;
+    text-align: center;
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay-details {
+    margin-top: 5px;
+}
+
+.overlay-detail-item {
+    margin: 12px 0;
+    text-align: center;
+}
+
+.overlay-detail-title {
+    font-weight: bold;
+    color: #60a5fa; /* 파란색 글자 */
+}
+
+.overlay-favorite-button {
+    display: inline-block; /* 버튼을 인라인 블록으로 설정 */
+    padding: 4px 8px; /* 버튼의 여백을 줄임 */
+    font-size: 14px; /* 버튼 글꼴 크기를 줄임 */
+    border-radius: 3px; /* 버튼 모서리 반경을 줄임 */
+    border: 1px solid #151512; /* 테두리 두께 조정 */
+    transition: color 0.3s, background-color 0.3s, border-color 0.3s;
+}
+
+.overlay-favorite-button:hover {
+    color: darkred;
+    background-color: #e3c8ba; /* 노란색 배경 추가 */
+    border-color: darkred; /* 테두리 색상 변경 */
+}
