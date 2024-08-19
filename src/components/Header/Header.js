@@ -25,7 +25,7 @@ const Header = () => {
 
     return (
         <header className="header">
-            <h1>IDTTI</h1>
+            <h1>최적의 주차장 찾기</h1>
             <div className="search-container">
                 <button className="search-button" onClick={toggleSearch}>
                     <img src={searchIcon} alt="Search" />

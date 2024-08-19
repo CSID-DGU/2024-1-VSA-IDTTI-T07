@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { AuthProvider } from './components/Auth/AuthContext';
 import Home from './pages/Home';
-import Search from './pages/Search';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ExampleComponent from './pages/ExampleComponent';
@@ -25,7 +24,6 @@ const App = () => {
                             <Routes>
                                 <Route path="/" element={<Navigate to="/home" />} />
                                 <Route path="/home" element={<Home />} />
-                                <Route path="/search" element={<Search />} />
                                 <Route path="/login" element={<Login />} />
                                 <Route path="/signup" element={<Signup />} />
                                 <Route path="/example" element={<ExampleComponent />} />
