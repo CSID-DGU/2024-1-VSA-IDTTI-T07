@@ -3,6 +3,7 @@ import { useLatLng } from '../Location/LatLngContext';
 import MLMapMarker from './MLMapMarker';
 import ParkPredictFetcher from './ParkPredictFetcher';
 import '../Map/Map.css';
+import '../Prediction/PredictList.css'
 import ZoomButton from '../Button/ZoomButton';
 import MyLocationButton from '../Button/MyLocationButton';
 import { DistanceProvider } from './DistanceContext';
