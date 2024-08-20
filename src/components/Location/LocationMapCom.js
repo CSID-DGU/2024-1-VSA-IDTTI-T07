@@ -1,9 +1,7 @@
-// LocationMapCom.js
 import React, { useEffect, useState } from 'react';
 import { useSearch } from '../Map/SearchContext';
 import { useLatLng } from './LatLngContext'; // Context import
 import '../Map/Map.css';
-// import '../Map/Map.css';
 import ZoomButton from '../Button/ZoomButton';
 import MyLocationButton from '../Button/MyLocationButton';
 
@@ -28,6 +26,25 @@ const LocationMapCom = () => {
         });
         marker.setMap(map);
 
+        // Create and display the overlay
+        const overlayContent = document.createElement('div');
+        overlayContent.style.padding = '10px';
+        overlayContent.style.background = '#ffeb3b';  // Yellow background for emphasis
+        overlayContent.style.color = '#000';  // Black text
+        overlayContent.style.fontWeight = 'bold';  // Bold text
+        overlayContent.style.border = '2px solid #f57c00';  // Orange border
+        overlayContent.style.borderRadius = '5px';
+        overlayContent.style.boxShadow = '0px 2px 10px rgba(0, 0, 0, 0.3)'; // Shadow for emphasis
+        overlayContent.innerText = '클릭하여 목적지를 설정하세요';
+
+        const customOverlay = new kakao.maps.CustomOverlay({
+            content: overlayContent,
+            map: map,
+            position: marker.getPosition(),
+            yAnchor: 1.5, // Position the overlay above the marker
+            xAnchor: 0.5 // Center the overlay horizontally
+        });
+
         kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
             const latlng = mouseEvent.latLng;
             marker.setPosition(latlng);
@@ -36,6 +53,9 @@ const LocationMapCom = () => {
             const message = `클릭한 위치의 위도는 ${latlng.getLat()} 이고, 경도는 ${latlng.getLng()} 입니다`;
             const resultDiv = document.getElementById('clickLatlng');
             resultDiv.innerHTML = message;
+
+            // Update overlay position
+            customOverlay.setPosition(latlng);
         });
     }, [kakao, setLatLng]);
 
@@ -58,7 +78,6 @@ const LocationMapCom = () => {
 
     return (
         <div id="map" className="map-container">
-            
             <div id="clickLatlng"></div>
             {map && (
                 <>

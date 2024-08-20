@@ -41,6 +41,7 @@ const MLMap = () => {
     const [map, setMap] = useState(null);
     const [positions, setPositions] = useState([]);
     const [parkingData, setParkingData] = useState([]);
+    const [isListVisible, setIsListVisible] = useState(true); // 목록 표시 여부 상태 추가
     const { latLng } = useLatLng();
 
     useEffect(() => {
@@ -108,24 +109,29 @@ const MLMap = () => {
         <DistanceProvider>
             <div className="map-container">
                 <div id="map"></div>
-                <div className="map-info">
-                    {sortedParkingData.length > 0 ? (
-                        <ul>
-                            {sortedParkingData.map((item, index) => (
-                                <li key={index}>
-                                    <h3>{index + 1}. {item.parkingName}</h3> {/* 번호 추가 */}
-                                    <p>주소: {item.address}</p>
-                                    <p>기본 주차 요금(5분): {item.baseParkingFee} 원</p>
-                                    <p>거리: {item.distance ? item.distance.toFixed(2) + ' km' : '정보 없음'}</p>
-                                    <p>예측 빈자리: {item.predictedSpace !== null ? item.predictedSpace : '정보 없음'}</p>
-                                    <p>현재 빈자리: {item.availParkSpace}</p>
-                                </li>
-                            ))}
-                        </ul>
-                    ) : (
-                        <p>주변에 주차장이 없습니다</p>
-                    )}
-                </div>
+                {isListVisible ? (
+                    <div className="map-info">
+                        <button className="close-btn" onClick={() => setIsListVisible(false)}>닫기</button>
+                        {sortedParkingData.length > 0 ? (
+                            <ul>
+                                {sortedParkingData.map((item, index) => (
+                                    <li key={index}>
+                                        <h3>{index + 1}. {item.parkingName}</h3> {/* 번호 추가 */}
+                                        <p>주소: {item.address}</p>
+                                        <p>기본 주차 요금(5분): {item.baseParkingFee} 원</p>
+                                        <p>거리: {item.distance ? item.distance.toFixed(2) + ' km' : '정보 없음'}</p>
+                                        <p>예측 빈자리: {item.predictedSpace !== null ? item.predictedSpace : '정보 없음'}</p>
+                                        <p>현재 빈자리: {item.availParkSpace}</p>
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <p>주변에 주차장이 없습니다</p>
+                        )}
+                    </div>
+                ) : (
+                    <button className="open-btn" onClick={() => setIsListVisible(true)}>목록 보기</button>
+                )}
                 <ParkPredictFetcher setPositions={setPositions} />
                 {map && (
                     <>
