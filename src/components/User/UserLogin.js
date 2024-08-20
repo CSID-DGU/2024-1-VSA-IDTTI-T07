@@ -18,7 +18,7 @@ const UserLogin = () => {
             password
         };
         try {
-            const response = await axios.post('http://172.30.1.2:8080/api/login', loginData);
+            const response = await axios.post('http://15.165.123.36:8080/api/login', loginData);
             if (response.status === 200) {
                 alert("안녕하세요 : " + response.data.nickname + "님");
                 login(response.data); // 로그인 성공 시 Context에 사용자 데이터 저장

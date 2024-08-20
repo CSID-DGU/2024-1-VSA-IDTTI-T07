@@ -15,7 +15,7 @@ const ParkPredictFetcher = ({ setPositions }) => {
                 // console.log('Normalized Prediction data:', predictionsArray);
 
                 // 주차장 정보 가져오기
-                const parkingResponse = await axios.get('http://172.30.1.2:8080/api/parking');
+                const parkingResponse = await axios.get('http://15.165.123.36:8080/api/parking');
 
                 // 주차장 정보와 예측 데이터를 결합
                 const data = parkingResponse.data.map(parking => {

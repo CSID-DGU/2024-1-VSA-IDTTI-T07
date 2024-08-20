@@ -4,7 +4,7 @@ import axios from 'axios';
 const ParkingDataFetcher = ({ setPositions }) => {
     const { kakao } = window;
     useEffect(() => {
-        axios.get('http://172.30.1.2:8080/api/parking')
+        axios.get('http://15.165.123.36:8080/api/parking')
             .then(response => {
                 const data = response.data.map(parkingCode => ({
                     code:parkingCode.code,

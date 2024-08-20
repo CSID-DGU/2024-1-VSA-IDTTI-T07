@@ -18,7 +18,7 @@ const UserSignup = () => {
         };
 
         try {
-            const response = await axios.post('http://172.30.1.2:8080/api/signup', signupData);
+            const response = await axios.post('http://15.165.123.36:8080/api/signup', signupData);
             if (response.status === 200) {
                 alert('회원가입 성공!');
                 navigate('/login'); // 로그인 성공 시 홈 페이지로 리다이렉트

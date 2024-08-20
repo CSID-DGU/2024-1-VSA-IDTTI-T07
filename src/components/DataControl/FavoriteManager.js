@@ -9,7 +9,7 @@ const useFavoriteManager = () => {
 
     useEffect(() => {
         if (user) {
-            axios.get(`http://172.30.1.2:8080/api/favorite?email=${user.email}`)
+            axios.get(`http://15.165.123.36:8080/api/favorite?email=${user.email}`)
                 .then(response => {
                     const favoriteData = response.data.reduce((acc, item) => {
                         acc[item.code] = item.favorite;
@@ -31,7 +31,7 @@ const useFavoriteManager = () => {
         }
     
         try {
-            await axios.post('http://172.30.1.2:8080/api/favorite', {
+            await axios.post('http://15.165.123.36:8080/api/favorite', {
                 email: user.email, // 현재 사용자 이메일
                 code: positionCode, // 마커의 고유 코드
                 favorite: isFavorite // 즐겨찾기 상태
@@ -45,7 +45,7 @@ const useFavoriteManager = () => {
 
     const getFavoriteParkingData = async () => {
         try {
-            const response = await axios.get(`http://172.30.1.2:8080/api/favorite-parking?email=${user.email}`);
+            const response = await axios.get(`http://15.165.123.36:8080/api/favorite-parking?email=${user.email}`);
             return response.data; // 주차장 데이터를 반환
         } catch (error) {
             console.error('Failed to fetch favorite parking data:', error);

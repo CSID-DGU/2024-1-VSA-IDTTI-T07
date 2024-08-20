@@ -36,7 +36,7 @@ const Location = () => {
         }
 
         try {
-            const response = await axios.get('http://172.30.1.2:8080/api/predict', {
+            const response = await axios.get('http://15.165.123.36:8080/api/predict', {
                 params: {
                     hour: adjustedHour,
                     minute: parseInt(minute, 10),

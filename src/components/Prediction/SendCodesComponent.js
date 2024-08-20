@@ -10,7 +10,7 @@ const SendCodesComponent = ({ codes, onDataFetched, distances, predictedSpaces }
 
     const fetchFilteredData = async (codes) => {
         try {
-            const response = await axios.post('http://172.30.1.2:8080/api/distance', { codes });
+            const response = await axios.post('http://15.165.123.36:8080/api/distance', { codes });
             console.log('Received Data:', response.data);
             // 받은 데이터를 distances와 함께 상위 컴포넌트로 전달
             onDataFetched(response.data, distances, predictedSpaces);
