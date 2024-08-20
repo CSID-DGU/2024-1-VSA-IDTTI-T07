@@ -14,7 +14,7 @@ public class ParkingPredictService {
 
     public String getParkingPrediction(int hour, int minute, String weekday) {
         String flaskApiUrl = "http://127.0.0.1:5000/predict";
-//        String flaskApiUrl = "http://172.30.1.100:5000/predict";
+//        String flaskApiUrl = "http://172.30.1.2:5000/predict";
 
         String url = flaskApiUrl + "?parking_code=" + "&hour=" + hour + "&minute=" + minute + "&weekday=" + weekday;
 

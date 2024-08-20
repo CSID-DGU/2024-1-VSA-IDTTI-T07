@@ -37,5 +37,5 @@ out/
 .vscode/
 
 ## application properties 파일 제외
-#application.properties
-#application.yml
+application.properties
+application.yml
